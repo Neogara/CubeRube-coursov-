@@ -790,7 +790,7 @@ namespace Tao_OpenGl_inicialised11
                             else
                             {
                                 if (SelectedCube.Y == 1)
-                         d       {
+                         {
                                     SelectedCube.Y += 1;
                                     SelectedCube.Z = 3;
                                 }
@@ -800,7 +800,7 @@ namespace Tao_OpenGl_inicialised11
                         break;
                     }
 
-                case Keys.D: // test
+                case Keys.D: 
                     {
                         if (SelectedCube.X == 1)
                         {
@@ -823,6 +823,19 @@ namespace Tao_OpenGl_inicialised11
                                         SelectedCube.X += 1;
                                         SelectedCube.Z = 2;
                                     }
+                                    else
+                                    {
+                                        if (SelectedCube.Z == 2)
+                                        {
+                                            if ((SelectedCube.Y == 3) || (SelectedCube.Y == 1))
+                                            {
+                                                SelectedCube.Y = 2;
+                                                SelectedCube.Z = 2;
+                                                SelectedCube.X -= 1;
+                                            }
+                                        }
+                                    }
+                                    
                                 }
                             }
                             else
@@ -859,6 +872,18 @@ namespace Tao_OpenGl_inicialised11
                                     {
                                         SelectedCube.X -= 1;
                                         SelectedCube.Z = 2;
+                                    }
+                                    else
+                                    {
+                                        if (SelectedCube.Z == 2)
+                                        {
+                                            if ((SelectedCube.Y == 1) || (SelectedCube.Y == 3))
+                                            {
+                                                SelectedCube.Y = 2;
+                                                SelectedCube.Z = 2;
+                                                SelectedCube.X += 1;
+                                            }
+                                        }
                                     }
                                 }
                             }
