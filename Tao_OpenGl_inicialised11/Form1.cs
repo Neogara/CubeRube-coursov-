@@ -790,7 +790,7 @@ namespace Tao_OpenGl_inicialised11
                             else
                             {
                                 if (SelectedCube.Y == 1)
-                                {
+                         d       {
                                     SelectedCube.Y += 1;
                                     SelectedCube.Z = 3;
                                 }
@@ -800,7 +800,7 @@ namespace Tao_OpenGl_inicialised11
                         break;
                     }
 
-                case Keys.D:
+                case Keys.D: // test
                     {
                         if (SelectedCube.X == 1)
                         {
