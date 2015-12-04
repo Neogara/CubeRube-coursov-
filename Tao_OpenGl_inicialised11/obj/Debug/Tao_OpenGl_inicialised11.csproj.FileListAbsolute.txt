@@ -1,0 +1,18 @@
+c:\users\ольга\documents\visual studio 2012\Projects\Tao_OpenGl_inicialised11\Tao_OpenGl_inicialised11\bin\Debug\Tao_OpenGl_inicialised11.exe.config
+c:\users\ольга\documents\visual studio 2012\Projects\Tao_OpenGl_inicialised11\Tao_OpenGl_inicialised11\bin\Debug\Tao_OpenGl_inicialised11.exe
+c:\users\ольга\documents\visual studio 2012\Projects\Tao_OpenGl_inicialised11\Tao_OpenGl_inicialised11\bin\Debug\Tao_OpenGl_inicialised11.pdb
+c:\users\ольга\documents\visual studio 2012\Projects\Tao_OpenGl_inicialised11\Tao_OpenGl_inicialised11\obj\Debug\Tao_OpenGl_inicialised11.csprojResolveAssemblyReference.cache
+c:\users\ольга\documents\visual studio 2012\Projects\Tao_OpenGl_inicialised11\Tao_OpenGl_inicialised11\obj\Debug\Tao_OpenGl_inicialised11.Form1.resources
+c:\users\ольга\documents\visual studio 2012\Projects\Tao_OpenGl_inicialised11\Tao_OpenGl_inicialised11\obj\Debug\Tao_OpenGl_inicialised11.Properties.Resources.resources
+c:\users\ольга\documents\visual studio 2012\Projects\Tao_OpenGl_inicialised11\Tao_OpenGl_inicialised11\obj\Debug\Tao_OpenGl_inicialised11.csproj.GenerateResource.Cache
+c:\users\ольга\documents\visual studio 2012\Projects\Tao_OpenGl_inicialised11\Tao_OpenGl_inicialised11\obj\Debug\Tao_OpenGl_inicialised11.exe
+c:\users\ольга\documents\visual studio 2012\Projects\Tao_OpenGl_inicialised11\Tao_OpenGl_inicialised11\obj\Debug\Tao_OpenGl_inicialised11.pdb
+F:\Programing\CubeRube OpenGL\Tao_OpenGl_inicialised11\obj\Debug\Tao_OpenGl_inicialised11.csprojResolveAssemblyReference.cache
+F:\Programing\CubeRube OpenGL\Tao_OpenGl_inicialised11\obj\Debug\Tao_OpenGl_inicialised11.Form1.resources
+F:\Programing\CubeRube OpenGL\Tao_OpenGl_inicialised11\obj\Debug\Tao_OpenGl_inicialised11.Properties.Resources.resources
+F:\Programing\CubeRube OpenGL\Tao_OpenGl_inicialised11\obj\Debug\Tao_OpenGl_inicialised11.csproj.GenerateResource.Cache
+F:\Programing\CubeRube OpenGL\Tao_OpenGl_inicialised11\bin\Debug\Cube-Rube OpenGL.exe.config
+F:\Programing\CubeRube OpenGL\Tao_OpenGl_inicialised11\bin\Debug\Cube-Rube OpenGL.exe
+F:\Programing\CubeRube OpenGL\Tao_OpenGl_inicialised11\bin\Debug\Cube-Rube OpenGL.pdb
+F:\Programing\CubeRube OpenGL\Tao_OpenGl_inicialised11\obj\Debug\Cube-Rube OpenGL.exe
+F:\Programing\CubeRube OpenGL\Tao_OpenGl_inicialised11\obj\Debug\Cube-Rube OpenGL.pdb
