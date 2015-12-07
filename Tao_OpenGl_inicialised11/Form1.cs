@@ -12,6 +12,8 @@ using Tao.OpenGl;
 using Tao.FreeGlut;
 using Tao.Platform.Windows;
 
+
+
 namespace Tao_OpenGl_inicialised11
 {
     public partial class Form1 : Form
@@ -36,13 +38,13 @@ namespace Tao_OpenGl_inicialised11
         double MouseDeltaX = 0;
         double MouseDeltaY = 0;
 
-
+        Color ColorWorld; //Цвет мира и интерфейса;
+       
 
         RotationStruct RotationVectorValue; // для поаорота кубика 
-        RotationStruct[] RotationVectorForCubes = new RotationStruct[28]; //для сохранения поворотов кубиков для переручиваниея 
+                                             //для сохранения поворотов кубиков для переручиваниея 
         TimeStruct TimeForRecords;
         SCube[, ,] StructCube = new SCube[3, 3, 3]; // потому что с 0 
-
         public struct RotationStruct // структура поворота 
         {
             public float RotationAngleX;
@@ -50,7 +52,6 @@ namespace Tao_OpenGl_inicialised11
             public float RotationAngleZ;
 
         }
-
         public struct TimeStruct  // структура времени 
         {
             public int MinuteTime;
@@ -62,8 +63,15 @@ namespace Tao_OpenGl_inicialised11
         {
             public int IntNameCube;
             public float AlphaColor;
+            public RotationStruct RotationCube;
         }
-
+        struct SSelectCube
+        {
+            public int X;
+            public int Y;
+            public int Z;
+        };
+        SSelectCube SelectedCube;
 
         int[][] VariationOFSelectedCybeMidle = { // хранилище возможных вборов середин для их переворотов * не используется 
             new int[] {1,1,0}, //front
@@ -86,7 +94,6 @@ namespace Tao_OpenGl_inicialised11
           //  new float [] {1.0f,0.5f,0.5f}   //тест 7
           };
 
-
         public Form1() // первичная инициализация 
         {
 
@@ -99,7 +106,11 @@ namespace Tao_OpenGl_inicialised11
         {
             Glut.glutInit();
             Glut.glutInitDisplayMode(Glut.GLUT_RGB | Glut.GLUT_DOUBLE | Glut.GLUT_DEPTH);
-            Gl.glClearColor(0.5f, 1, 1, 1);
+
+
+            Gl.glClearColor(ColorWorld.R, ColorWorld.G, ColorWorld.B, 1);
+            
+
             Gl.glViewport(5, 5, AnT.Width, AnT.Height);
 
             Gl.glMatrixMode(Gl.GL_PROJECTION);
@@ -119,19 +130,14 @@ namespace Tao_OpenGl_inicialised11
             FirstSettingUp();
 
         }
+
         private void FirstSettingUp()
         {
             RotationVectorValue.RotationAngleY = 0;
             RotationVectorValue.RotationAngleX = 0;
 
-            for (int i = 1; i < 27; i++)
-            {
 
-                RotationVectorForCubes[i].RotationAngleX = 0;
-                RotationVectorForCubes[i].RotationAngleY = 0;
-                RotationVectorForCubes[i].RotationAngleZ = 0;
-
-            };
+           
             int SelectIntName = 0;
 
             for (int Z = 0; Z < 3; Z++)
@@ -140,6 +146,11 @@ namespace Tao_OpenGl_inicialised11
                     {
                         StructCube[X, Y, Z].IntNameCube = SelectIntName += 1;
                         StructCube[X, Y, Z].AlphaColor = NormalAlphaColor;
+                        StructCube[X, Y, Z].RotationCube.RotationAngleX = 0;
+                        StructCube[X, Y, Z].RotationCube.RotationAngleY = 0;
+                        StructCube[X, Y, Z].RotationCube.RotationAngleZ = 0;
+
+                    
                     }
 
 
@@ -147,14 +158,18 @@ namespace Tao_OpenGl_inicialised11
             SelectedCube.Y = 2;
             SelectedCube.Z = 1;
 
+            
+             
+            Gl.glClearColor(ColorWorld.R, ColorWorld.G, ColorWorld.B, 1);
+
             PanelMenu.Left = AnT.Width + 10;
         } // первичная настройка параметров 
 
-        public void RotationForCube(int CubeIntName)//поворот кубика для поворота грани 
+        public void RotationForCube(int X,int Y ,int Z)//поворот кубика для поворота грани 
         {
-            Gl.glRotated(RotationVectorForCubes[CubeIntName].RotationAngleX, 1, 0, 0);
-            Gl.glRotated(RotationVectorForCubes[CubeIntName].RotationAngleY, 0, 1, 0);
-            Gl.glRotated(RotationVectorForCubes[CubeIntName].RotationAngleZ, 0, 0, 1);
+            Gl.glRotated(StructCube[X, Y, Z].RotationCube.RotationAngleX, 1, 0, 0);
+            Gl.glRotated(StructCube[X, Y, Z].RotationCube.RotationAngleY, 0, 1, 0);
+            Gl.glRotated(StructCube[X, Y, Z].RotationCube.RotationAngleZ, 0, 0, 1);
 
         }
 
@@ -232,7 +247,7 @@ namespace Tao_OpenGl_inicialised11
             //--------------------------------------------------// z=-1 +
             Gl.glPushMatrix();
             Gl.glPushMatrix();
-            RotationForCube(1);
+            RotationForCube(0,0,0);
             Gl.glTranslated(-1, -1, -1);
 
             WriteCube(COlorHande[2], COlorHande[6], COlorHande[0], COlorHande[6], COlorHande[3], COlorHande[6], 1);
@@ -240,7 +255,7 @@ namespace Tao_OpenGl_inicialised11
             Gl.glPopMatrix();
 
             Gl.glPushMatrix();
-            RotationForCube(2);
+            RotationForCube(0,1,0);
             Gl.glTranslated(-1, 0, -1);
             WriteCube(COlorHande[2], COlorHande[6], COlorHande[0], COlorHande[6], COlorHande[6], COlorHande[6], 1);
             WriteSoidCub();
@@ -248,7 +263,7 @@ namespace Tao_OpenGl_inicialised11
 
             Gl.glTranslated(0, 0, 0);
             Gl.glPushMatrix();
-            RotationForCube(3);
+            RotationForCube(0,0,0);
             Gl.glTranslated(-1, 1, -1);
             WriteCube(COlorHande[2], COlorHande[6], COlorHande[0], COlorHande[4], COlorHande[6], COlorHande[6], 1);
             WriteSoidCub();
@@ -257,42 +272,42 @@ namespace Tao_OpenGl_inicialised11
             //--------------------------------------------------//z=-1 + 
 
             Gl.glPushMatrix();
-            RotationForCube(4);
+            RotationForCube(1,0,0);
             Gl.glTranslated(0, -1, -1);
             WriteCube(COlorHande[2], COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[3], COlorHande[6], 1);
             WriteSoidCub();
             Gl.glPopMatrix();
 
             Gl.glPushMatrix();
-            RotationForCube(5);
+            RotationForCube(1,1,0);
             Gl.glTranslated(0, 0, -1);//5//Серединка //110
             WriteCube(COlorHande[2], COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[6], StructCube[1, 1, 0].AlphaColor);
             WriteSoidCub();
             Gl.glPopMatrix();
 
             Gl.glPushMatrix();
-            RotationForCube(6);
+            RotationForCube(1,2,0);
             Gl.glTranslated(0, 1, -1);
             WriteCube(COlorHande[2], COlorHande[6], COlorHande[6], COlorHande[4], COlorHande[6], COlorHande[6], 1);
             WriteSoidCub();
             Gl.glPopMatrix();
             //--------------------------------------------------//z=-1 +
             Gl.glPushMatrix();
-            RotationForCube(7);
+            RotationForCube(2,0,0);
             Gl.glTranslated(1, -1, -1);
             WriteCube(COlorHande[2], COlorHande[5], COlorHande[6], COlorHande[6], COlorHande[3], COlorHande[6], 1);
             WriteSoidCub();
             Gl.glPopMatrix();
 
             Gl.glPushMatrix();
-            RotationForCube(8);
+            RotationForCube(2,1,0);
             Gl.glTranslated(1, 0, -1);
             WriteCube(COlorHande[2], COlorHande[5], COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[6], 1);
             WriteSoidCub();
             Gl.glPopMatrix();
 
             Gl.glPushMatrix();
-            RotationForCube(9);
+            RotationForCube(2,2,0);
             Gl.glTranslated(1, 1, -1);
             WriteCube(COlorHande[2], COlorHande[5], COlorHande[6], COlorHande[4], COlorHande[6], COlorHande[6], 1);
             WriteSoidCub();
@@ -300,14 +315,14 @@ namespace Tao_OpenGl_inicialised11
 
             //--------------------------------------------------//z=0 +
             Gl.glPushMatrix();
-            RotationForCube(10);
+            RotationForCube(0, 0, 1);
             Gl.glTranslated(-1, -1, 0);
             WriteCube(COlorHande[6], COlorHande[6], COlorHande[0], COlorHande[6], COlorHande[3], COlorHande[6], 1);
             WriteSoidCub();
             Gl.glPopMatrix();
 
             Gl.glPushMatrix();
-            RotationForCube(11);
+            RotationForCube(0, 1, 1);
             Gl.glTranslated(-1, 0, 0);
             //середина......................... 000
             WriteCube(COlorHande[6], COlorHande[6], COlorHande[0], COlorHande[6], COlorHande[6], COlorHande[6], StructCube[0, 1, 1].AlphaColor);
@@ -315,28 +330,28 @@ namespace Tao_OpenGl_inicialised11
             Gl.glPopMatrix();
 
             Gl.glPushMatrix();
-            RotationForCube(12);
+            RotationForCube(0,2,1);
             Gl.glTranslated(-1, 1, 0);
             WriteCube(COlorHande[6], COlorHande[6], COlorHande[0], COlorHande[4], COlorHande[6], COlorHande[6], 1);
             WriteSoidCub();
             Gl.glPopMatrix();
             //--------------------------------------------------//z=0 +
             Gl.glPushMatrix();
-            RotationForCube(13);
+            RotationForCube(1, 0, 1);
             Gl.glTranslated(0, -1, 0); // середина
             WriteCube(COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[3], COlorHande[6], StructCube[1, 0, 1].AlphaColor);
             WriteSoidCub();
             Gl.glPopMatrix();
 
             Gl.glPushMatrix();
-            RotationForCube(14);
+            RotationForCube(1,1,1);
             Gl.glTranslated(0, 0, 0);
             WriteCube(COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[6], 1); //нулевой  
             WriteSoidCub();
             Gl.glPopMatrix();
 
             Gl.glPushMatrix();
-            RotationForCube(15);
+            RotationForCube(1,2,1);
             Gl.glTranslated(0, 1, 0);
             // середина
             WriteCube(COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[4], COlorHande[6], COlorHande[6], StructCube[1, 2, 1].AlphaColor);
@@ -344,14 +359,14 @@ namespace Tao_OpenGl_inicialised11
             Gl.glPopMatrix();
             //--------------------------------------------------//z=0 +
             Gl.glPushMatrix();
-            RotationForCube(16);
+            RotationForCube(2,0,1);
             Gl.glTranslated(1, -1, 0);
             WriteCube(COlorHande[6], COlorHande[5], COlorHande[6], COlorHande[6], COlorHande[3], COlorHande[6], 1);
             WriteSoidCub();
             Gl.glPopMatrix();
 
             Gl.glPushMatrix();
-            RotationForCube(17);
+            RotationForCube(2,1,1);
             Gl.glTranslated(1, 0, 0);
             //Середина!!!!
             WriteCube(COlorHande[6], COlorHande[5], COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[6], StructCube[2, 1, 1].AlphaColor);
@@ -359,7 +374,7 @@ namespace Tao_OpenGl_inicialised11
             Gl.glPopMatrix();
 
             Gl.glPushMatrix();
-            RotationForCube(18);
+            RotationForCube(2,2,1);
             Gl.glTranslated(1, 1, 0);
             WriteCube(COlorHande[6], COlorHande[5], COlorHande[6], COlorHande[4], COlorHande[6], COlorHande[6], 1);
             WriteSoidCub();
@@ -368,35 +383,35 @@ namespace Tao_OpenGl_inicialised11
 
             //--------------------------------------------------//z=1 +
             Gl.glPushMatrix();
-            RotationForCube(19);
+            RotationForCube(0,0,2);
             Gl.glTranslated(-1, -1, 1);
             WriteCube(COlorHande[6], COlorHande[6], COlorHande[0], COlorHande[6], COlorHande[3], COlorHande[1], 1);
             WriteSoidCub();
             Gl.glPopMatrix();
 
             Gl.glPushMatrix();
-            RotationForCube(20);
+            RotationForCube(0,1,2);
             Gl.glTranslated(-1, 0, 1);
             WriteCube(COlorHande[6], COlorHande[6], COlorHande[0], COlorHande[6], COlorHande[6], COlorHande[1], 1);
             WriteSoidCub();
             Gl.glPopMatrix();
 
             Gl.glPushMatrix();
-            RotationForCube(21);
+            RotationForCube(0,2,2);
             Gl.glTranslated(-1, 1, 1);
             WriteCube(COlorHande[6], COlorHande[6], COlorHande[0], COlorHande[4], COlorHande[6], COlorHande[1], 1);
             WriteSoidCub();
             Gl.glPopMatrix();
             //--------------------------------------------------//z=1 - 
             Gl.glPushMatrix();
-            RotationForCube(22);
+            RotationForCube(1,0,2);
             Gl.glTranslated(0, -1, 1);
             WriteCube(COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[3], COlorHande[1], 1); ;
             WriteSoidCub();
             Gl.glPopMatrix();
 
             Gl.glPushMatrix();
-            RotationForCube(23);
+            RotationForCube(1,1,2);
             Gl.glTranslated(0, 0, 1);
             // тут что то не то Середина !!
             WriteCube(COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[1], StructCube[1, 1, 2].AlphaColor);
@@ -404,28 +419,28 @@ namespace Tao_OpenGl_inicialised11
             Gl.glPopMatrix();
 
             Gl.glPushMatrix();
-            RotationForCube(24);
+            RotationForCube(1,2,2);
             Gl.glTranslated(0, 1, 1);
             WriteCube(COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[4], COlorHande[6], COlorHande[1], 1);
             WriteSoidCub();
             Gl.glPopMatrix();
             //--------------------------------------------------//z=1
             Gl.glPushMatrix();
-            RotationForCube(25);
+            RotationForCube(2,0,2);
             Gl.glTranslated(1, -1, 1);
             WriteCube(COlorHande[6], COlorHande[5], COlorHande[6], COlorHande[6], COlorHande[3], COlorHande[1], 1);
             WriteSoidCub();
             Gl.glPopMatrix();
 
             Gl.glPushMatrix();
-            RotationForCube(26);
+            RotationForCube(2,1,2);
             Gl.glTranslated(1, 0, 1);
             WriteCube(COlorHande[6], COlorHande[5], COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[1], 1);
             WriteSoidCub();
             Gl.glPopMatrix();
 
             Gl.glPushMatrix();
-            RotationForCube(27);
+            RotationForCube(2,2,2);
             Gl.glTranslated(1, 1, 1);
             WriteCube(COlorHande[6], COlorHande[5], COlorHande[6], COlorHande[4], COlorHande[6], COlorHande[1], 1);
             WriteSoidCub();
@@ -453,7 +468,7 @@ namespace Tao_OpenGl_inicialised11
 
             Gl.glLoadIdentity();
             Gl.glPushMatrix();
-            Glu.gluLookAt(10, 0, 0, -10, 0, 0, 0, 1, 0);
+            Glu.gluLookAt(SizeCube, 1, 0, -10, 0, 0, 0, 1, 0);
 
             Gl.glTranslated(0.5f, 0.5f, 0.5f);
             Gl.glRotated(MouseDeltaX, 0, -1, 0);
@@ -470,7 +485,7 @@ namespace Tao_OpenGl_inicialised11
 
         }
 
-        void AnimationOpenMenu(object sender, EventArgs e)
+         void AnimationOpenMenu(object sender, EventArgs e)
         {
 
             if (PanelMenu.Left >= AnT.Width - PanelMenu.Width)
@@ -487,7 +502,7 @@ namespace Tao_OpenGl_inicialised11
 
         } // анимация для открывания "меню "
 
-        void AnimationCloseMenu(object sender, EventArgs e)
+         void AnimationCloseMenu(object sender, EventArgs e)
         {
             if (PanelMenu.Location.X <= AnT.Width + PanelMenu.Width + 10)
             {
@@ -502,6 +517,8 @@ namespace Tao_OpenGl_inicialised11
 
             }
         }// анимация для закрывания "меню "
+
+       
 
         private void EventHandler(object sender, EventArgs e)
         {
@@ -522,7 +539,7 @@ namespace Tao_OpenGl_inicialised11
         private void label1_MouseEnter(object sender, EventArgs e)
         {
             RenderAnimation.Tick += AnimationOpenMenu;
-            LabelMenu.Visible = false;
+            MenuLabel.Visible = false;
             RenderAnimation.Enabled = true;
             if (StartGame == true)
             {
@@ -537,7 +554,7 @@ namespace Tao_OpenGl_inicialised11
         private void panel1_Leave(object sender, EventArgs e)
         {
             RenderAnimation.Tick += AnimationCloseMenu;
-            LabelMenu.Visible = true;
+            MenuLabel.Visible = true;
             RenderAnimation.Enabled = true;
             if (PauseGame == true)
             {
@@ -688,13 +705,6 @@ namespace Tao_OpenGl_inicialised11
 
         } //конвертация из IntNameCube в Его номера в масииве
 
-        struct SSelectCube
-        {
-            public int X;
-            public int Y;
-            public int Z;
-        };
-        SSelectCube SelectedCube;
         private void AnT_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
@@ -790,17 +800,17 @@ namespace Tao_OpenGl_inicialised11
                             else
                             {
                                 if (SelectedCube.Y == 1)
-                         {
+                                {
                                     SelectedCube.Y += 1;
                                     SelectedCube.Z = 3;
                                 }
-                               
+
                             }
                         }
                         break;
                     }
 
-                case Keys.D: 
+                case Keys.D:
                     {
                         if (SelectedCube.X == 1)
                         {
@@ -835,7 +845,7 @@ namespace Tao_OpenGl_inicialised11
                                             }
                                         }
                                     }
-                                    
+
                                 }
                             }
                             else
@@ -847,7 +857,7 @@ namespace Tao_OpenGl_inicialised11
                                 }
                             }
                         }
-       
+
                         break;
                     }
                 case Keys.A:
@@ -896,23 +906,101 @@ namespace Tao_OpenGl_inicialised11
                                 }
                             }
                         }
+                        break;
+                    }
+                case Keys.Space: // переворот 
+                    {
+                        if ((SelectedCube.X == 1) & (SelectedCube.Y == 1) & (SelectedCube.Z == 0))
+                        {
+                            
+                        }
+                        else
+                        {
+                            if ((SelectedCube.X == 1) & (SelectedCube.Y == 2) & (SelectedCube.Z == 1))
+                            {
+
+                            }
+                            else
+                            {
+                                if ((SelectedCube.X == 2) & (SelectedCube.Y == 1) & (SelectedCube.Z == 1))
+                                {
+
+                                }
+                                else
+                                {
+                                    if ((SelectedCube.X == 0) & (SelectedCube.Y == 1) & (SelectedCube.Z == 1))
+                                    {
+
+                                    }
+                                    else
+                                    {
+                                        if ((SelectedCube.X == 1) & (SelectedCube.Y == 0) & (SelectedCube.Z == 1))
+                                        {
+
+                                        }
+                                        else
+                                        {
+                                            if ((SelectedCube.X == 1) & (SelectedCube.Y == 1) & (SelectedCube.Z == 2))
+                                            {
+
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+
 
                         break;
                     }
-                    }
-                    label1.Text = (Convert.ToString(SelectedCube.X) + Convert.ToString(SelectedCube.Y) + Convert.ToString(SelectedCube.Z));
-                   
+            }       
                     StructCube[1, 1, 0].AlphaColor = NormalAlphaColor;
                     StructCube[1, 2, 1].AlphaColor = NormalAlphaColor;
                     StructCube[2, 1, 1].AlphaColor = NormalAlphaColor;
                     StructCube[0, 1, 1].AlphaColor = NormalAlphaColor;
                     StructCube[1, 0, 1].AlphaColor = NormalAlphaColor;
                     StructCube[1, 1, 2].AlphaColor = NormalAlphaColor;
-                   
-
                     StructCube[SelectedCube.X - 1, SelectedCube.Y - 1, SelectedCube.Z - 1].AlphaColor = SelectAlphaColor;
             }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            SettingsPanel.Visible = true;
+            SettingsPanel.Focus();
+        }
+        int SizeCube = 10;
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            SizeCube=trackBar1.Value;
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+            colorDialog1.ShowDialog();
+
+            ColorLabel.BackColor = colorDialog1.Color;
+            ColorWorld = colorDialog1.Color;
+            Gl.glClearColor(ColorWorld.R, ColorWorld.G, ColorWorld.B, ColorWorld.A);
+
+            PanelMenu.BackColor = ColorWorld;
+            NewGameButton.BackColor = ColorWorld;
+            SettingsButton.BackColor = ColorWorld;
+            RecordButton.BackColor = ColorWorld;
+            ExitButton.BackColor = ColorWorld;
+            SettingsPanel.BackColor = ColorWorld;
+            MenuLabel.BackColor = ColorWorld;
+            TimeLabel.BackColor = ColorWorld;
+
+            
+        }
+
+        private void SettingsPanel_Leave(object sender, EventArgs e)
+        {
+            SettingsPanel.Visible = false;
+        }
+
+       
 
         }
     }
