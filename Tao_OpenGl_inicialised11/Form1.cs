@@ -16,8 +16,229 @@ using Tao.Platform.Windows;
 
 namespace Tao_OpenGl_inicialised11
 {
+
+
     public partial class Form1 : Form
     {
+
+        public class ClassCube
+        {
+            public int IntName { get; set; }
+            public double RotationAngleX { get; set; }
+            public double RotationAngleY { get; set; }
+            public double RotationAngleZ { get; set; }
+            public float AlphaColor { get; set; }
+            public float[] Vertex { get; set; }
+            public float[][] ColorCube { get; set; }
+
+            public ClassCube(int _IntName, float AngleX, float AngleY, float AngleZ, float _AlphaColor)
+            {
+                IntName = _IntName;
+                RotationAngleX = AngleX;
+                RotationAngleY = AngleY;
+                RotationAngleZ = AngleZ;
+                AlphaColor = _AlphaColor;
+                Vertex = new float[4];
+                ColorCube = new float[7][];
+            }
+            public ClassCube()
+            {
+
+            }
+            public void SetRotation(float AngleX, float AngleY, float AngleZ)
+            {
+                RotationAngleX = AngleX;
+                RotationAngleY = AngleY;
+                RotationAngleZ = AngleZ;
+            }
+            public void SetObjectCube(float X, float Y, float Z, float[] Color1, float[] Color2, float[] Color3, float[] Color4, float[] Color5, float[] Color6, float _AlphaColor)
+            {
+                Vertex[1] = X;
+                Vertex[2] = Y;
+                Vertex[3] = Z;
+
+                ColorCube[1] = Color1;
+                ColorCube[2] = Color2;
+                ColorCube[3] = Color3;
+                ColorCube[4] = Color4;
+                ColorCube[5] = Color5;
+                ColorCube[6] = Color6;
+                AlphaColor = _AlphaColor;
+
+                RotationAngleX = 0;
+                RotationAngleY = 0;
+                RotationAngleZ = 0;
+            }
+            public void WriteCube()
+            {
+                
+                
+               
+
+                Gl.glEnable(Gl.GL_LINE_STIPPLE);
+
+                Gl.glBegin(Gl.GL_QUADS); //front
+
+                Gl.glColor4f(ColorCube[1][0], ColorCube[1][1], ColorCube[1][2], 1);
+                Gl.glVertex3d(0, 0, 0);
+                Gl.glVertex3d(1, 0, 0);
+                Gl.glVertex3d(1, 1, 0);
+                Gl.glVertex3d(0, 1, 0);
+                Gl.glEnd();
+
+
+                Gl.glBegin(Gl.GL_QUADS); //top
+                Gl.glColor4f(ColorCube[4][0], ColorCube[4][1], ColorCube[4][2], 1);
+                Gl.glVertex3d(0, 1, 0);
+                Gl.glVertex3d(0, 1, 1);
+                Gl.glVertex3d(1, 1, 1);
+                Gl.glVertex3d(1, 1, 0);
+                Gl.glEnd();
+
+
+                Gl.glBegin(Gl.GL_QUADS); // Right
+                Gl.glColor4f(ColorCube[2][0], ColorCube[2][1], ColorCube[2][2], 1);
+                Gl.glVertex3d(1, 0, 0);
+                Gl.glVertex3d(1, 0, 1);
+                Gl.glVertex3d(1, 1, 1);
+                Gl.glVertex3d(1, 1, 0);
+                Gl.glEnd();
+
+
+                Gl.glBegin(Gl.GL_QUADS); // down
+                Gl.glColor4f(ColorCube[5][0], ColorCube[5][1], ColorCube[5][2], 1);
+                Gl.glVertex3d(0, 0, 0);
+                Gl.glVertex3d(1, 0, 0);
+                Gl.glVertex3d(1, 0, 1);
+                Gl.glVertex3d(0, 0, 1);
+                Gl.glEnd();
+
+
+                Gl.glBegin(Gl.GL_QUADS);//left
+                Gl.glColor4f(ColorCube[3][0], ColorCube[3][1], ColorCube[3][2], 1);
+                Gl.glVertex3d(0, 0, 0);
+                Gl.glVertex3d(0, 1, 0);
+                Gl.glVertex3d(0, 1, 1);
+                Gl.glVertex3d(0, 0, 1);
+                Gl.glEnd();
+
+
+                Gl.glBegin(Gl.GL_QUADS); //bot
+                Gl.glColor4f(ColorCube[6][0], ColorCube[6][1], ColorCube[6][2], 1);
+                Gl.glVertex3d(0, 0, 1);
+                Gl.glVertex3d(0, 1, 1);
+                Gl.glVertex3d(1, 1, 1);
+                Gl.glVertex3d(1, 0, 1);
+                Gl.glEnd();
+
+
+                Gl.glDisable(Gl.GL_LINE_STIPPLE);
+                
+                
+            } //рисование одного кубика 
+            public void WriteSoidCub()
+            {
+                Gl.glPolygonMode(Gl.GL_FRONT_AND_BACK, Gl.GL_LINE);
+                Gl.glLineWidth(7);
+                Gl.glColor3f(0, 0, 0);
+                Gl.glBegin(Gl.GL_QUADS); //front
+                Gl.glVertex3d(0, 0, 0);
+                Gl.glVertex3d(1, 0, 0);
+                Gl.glVertex3d(1, 1, 0);
+                Gl.glVertex3d(0, 1, 0);
+                Gl.glEnd();
+
+
+                Gl.glBegin(Gl.GL_QUADS); //top
+                Gl.glVertex3d(0, 1, 0);
+                Gl.glVertex3d(0, 1, 1);
+                Gl.glVertex3d(1, 1, 1);
+                Gl.glVertex3d(1, 1, 0);
+                Gl.glEnd();
+
+
+                Gl.glBegin(Gl.GL_QUADS); // Right
+                Gl.glVertex3d(1, 0, 0);
+                Gl.glVertex3d(1, 0, 1);
+                Gl.glVertex3d(1, 1, 1);
+                Gl.glVertex3d(1, 1, 0);
+                Gl.glEnd();
+
+
+                Gl.glBegin(Gl.GL_QUADS); // down
+                Gl.glVertex3d(0, 0, 0);
+                Gl.glVertex3d(1, 0, 0);
+                Gl.glVertex3d(1, 0, 1);
+                Gl.glVertex3d(0, 0, 1);
+                Gl.glEnd();
+
+
+                Gl.glBegin(Gl.GL_QUADS);//left
+                Gl.glVertex3d(0, 0, 0);
+                Gl.glVertex3d(0, 1, 0);
+                Gl.glVertex3d(0, 1, 1);
+                Gl.glVertex3d(0, 0, 1);
+                Gl.glEnd();
+
+
+                Gl.glBegin(Gl.GL_QUADS); //bot
+                Gl.glVertex3d(0, 0, 1);
+                Gl.glVertex3d(0, 1, 1);
+                Gl.glVertex3d(1, 1, 1);
+                Gl.glVertex3d(1, 0, 1);
+                Gl.glEnd();
+                Gl.glPolygonMode(Gl.GL_FRONT_AND_BACK, Gl.GL_FILL);
+
+
+
+            } // рисоване граней кубика
+            public void DrawCube()
+            {
+
+                Gl.glPushMatrix();
+
+//`             Gl.glTranslatef(.75f, .75f, .75f);
+                Gl.glTranslatef(0,0,0);
+                Gl.glRotated(RotationAngleX, 1, 0, 0);
+                Gl.glRotated(RotationAngleY, 0, 1, 0);
+                Gl.glRotated(RotationAngleZ, 0, 0, 1);
+                Gl.glTranslatef(Vertex[1], Vertex[2], Vertex[3]);
+             //   Gl.glTranslatef(Vertex[1] - .7f, Vertex[2] - .7f, Vertex[3] - .7f);
+               
+                WriteCube();
+                WriteSoidCub();
+
+                Gl.glPopMatrix();
+
+
+            }
+        }
+        public class CameraClass
+        {
+            float AngleX;
+            float AngleY;
+
+            public CameraClass(float RotationAngleX, float RotationAngleY)
+            {
+                AngleX = RotationAngleX;
+                AngleY = RotationAngleY;
+            }
+
+        }
+        public class Time  // структура времени 
+        {
+
+            public Time()
+            {
+                MilleSecondsTime = 0;
+                SecondsTime = 0;
+                MinuteTime = 0;
+            }
+            public int MinuteTime { get; set; }
+            public int SecondsTime { get; set; }
+            public int MilleSecondsTime { get; set; }
+
+        }
         float DeltaAngleForAllCube = 45; // угол поворота кубика (сейчас не используется ) 
         float DeltaAngleForCubeRotation = 90; // угол поворота раней кубика 
 
@@ -40,75 +261,18 @@ namespace Tao_OpenGl_inicialised11
 
         int SizeCube = 10; // началный размер куба
 
-        Color ColorWorld; //Цвет мира и интерфейса;
+        Color ColorWorld; //Цвет мира и интерфейса
 
-        public class ClassCube
-        {
-             public int IntName;
-            public double RotationAngleX;
-            public double RotationAngleY;
-            public double RotationAngleZ;
-            public float AlphaColor;
-            public ClassCube(int _IntName, float AngleX, float AngleY, float AngleZ, float _AlphaColor)
-            {
-                IntName = _IntName;
-                RotationAngleX = AngleX;
-                RotationAngleY = AngleY;
-                RotationAngleZ = AngleZ;
-                AlphaColor = _AlphaColor;
-            }
-            public int GetIntName()
-            {
-                return IntName;
-            }
+        public ClassCube[, ,] Cube = new ClassCube[3, 3, 3];
 
-            public void SetAplhaColor(float Color)
-            {
-                AlphaColor = Color;
-            }
-
-            public void SetRotation(float AngleX, float AngleY, float AngleZ)
-            {
-                RotationAngleX = AngleX;
-                RotationAngleY = AngleY;
-                RotationAngleZ = AngleZ;
-            }
-        }
-        public class CameraClass
-        {
-            float AngleX;
-            float AngleY;
-
-            public CameraClass(float RotationAngleX, float RotationAngleY)
-            {
-                AngleX = RotationAngleX;
-                AngleY = RotationAngleY;
-            }
-
-        }
-
-        TimeStruct TimeForRecords;
-
-        // потому что с 0 
-
-        public struct TimeStruct  // структура времени 
-        {
-            public int MinuteTime;
-            public int SecondsTime;
-            public int MilleSecondsTime;
-
-        }
-
+        Time TimeForRecords = new Time();
         struct SSelectCube
         {
             public int X;
             public int Y;
             public int Z;
         };
-
-
         SSelectCube SelectedCube;
-
         int[][] VariationOFSelectedCybeMidle = { // хранилище возможных вборов середин для их переворотов * не используется 
             new int[] {1,1,0}, //front
             new int[] {1,2,1}, //top 
@@ -128,7 +292,7 @@ namespace Tao_OpenGl_inicialised11
             new float [] {0,0,0}  , //черный 6
           };
 
-
+        ClassCube[, ,] DynamicCubeModel;
         public Form1() // первичная инициализация 
         {
 
@@ -142,7 +306,7 @@ namespace Tao_OpenGl_inicialised11
             Glut.glutInit();
             Glut.glutInitDisplayMode(Glut.GLUT_RGB | Glut.GLUT_DOUBLE | Glut.GLUT_DEPTH);
 
-            Gl.glClearColor(ColorWorld.R, ColorWorld.G, ColorWorld.B, 1);
+            Gl.glClearColor(0,0,1 ,1);
 
             Gl.glViewport(5, 5, AnT.Width, AnT.Height);
 
@@ -158,344 +322,93 @@ namespace Tao_OpenGl_inicialised11
             Gl.glEnable(Gl.GL_BLEND);
             Gl.glBlendFunc(Gl.GL_SRC_ALPHA, Gl.GL_ONE_MINUS_SRC_ALPHA);
 
-            //  Gl.glEnable(Gl.GL_LIGHTING);
-            // Gl.glEnable(Gl.GL_LIGHT0);
+            //Gl.glEnable(Gl.GL_LIGHTING);
+            // Gl.glEnable(Gl.GL_LIGHT1);
+
             FirstSettingUp();
+            SecondSettingUp();
 
         }
-        public ClassCube[, ,] Cube = new ClassCube[3, 3, 3];
+
         private void FirstSettingUp()
-        {
-
-            //    ClassCube[, ,] DynamicModel = ClassCube SCube[3, 3, 3];
-
+        {  // Time TimeForRecords =  new Time ();
             CameraClass Camera = new CameraClass(0, 0);
 
-            int SelectIntName = 0;
+            int SelectIntName = 1;
             for (int Z = 0; Z < 3; Z++)
                 for (int X = 0; X < 3; X++)
                     for (int Y = 0; Y < 3; Y++)
                     {
                         Cube[X, Y, Z] = new ClassCube(SelectIntName, 0, 0, 0, NormalAlphaColor);
-
-
+                        //  DynamicCubeModel[X, Y, Z] = Cube[X, Y, Z];
+                        SelectIntName += 1;
                     }
-
-            // DynamicModel = (SCube[, ,])Cube.Clone();
+            //DynamicCubeModel = Cube;
             SelectedCube.X = 2;
             SelectedCube.Y = 2;
             SelectedCube.Z = 1;
-            //  InicialiseDynamicCubeStruct();
-
-            Cube[SelectedCube.X, SelectedCube.Y, SelectedCube.Z].SetAplhaColor(.5f);
-
-
-            Gl.glClearColor(ColorWorld.R, ColorWorld.G, ColorWorld.B, 1);
-
+            Cube[SelectedCube.X-1, SelectedCube.Y-1, SelectedCube.Z-1].AlphaColor = SelectAlphaColor;
+            Gl.glClearColor(0,0.5f,1,1);
             PanelMenu.Left = AnT.Width + 10;
-            //}
+
         }// первичная настройка параметров 
 
-
-
-        public void RotationForCube(int X, int Y, int Z)//поворот кубика для поворота грани 
+        public void SecondSettingUp()
         {
+            Cube[0, 0, 0].SetObjectCube(-1, -1, -1, COlorHande[2], COlorHande[6], COlorHande[0], COlorHande[6], COlorHande[3], COlorHande[6], Cube[0, 0, 0].AlphaColor);
+            Cube[0, 1, 0].SetObjectCube(-1, 0, -1, COlorHande[2], COlorHande[6], COlorHande[0], COlorHande[6], COlorHande[6], COlorHande[6], Cube[0, 1, 0].AlphaColor);
+            Cube[0, 2, 0].SetObjectCube(-1, 1, -1, COlorHande[2], COlorHande[6], COlorHande[0], COlorHande[4], COlorHande[6], COlorHande[6], Cube[0, 2, 0].AlphaColor);
 
-            Gl.glRotated(Cube[X, Y, Z].RotationAngleX, 1, 0, 0);
-            Gl.glRotated(Cube[X, Y, Z].RotationAngleY, 0, 1, 0);
-            Gl.glRotated(Cube[X, Y, Z].RotationAngleZ, 0, 0, 1);
+            Cube[1, 0, 0].SetObjectCube(0, -1, -1, COlorHande[2], COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[3], COlorHande[6], Cube[1, 0, 0].AlphaColor);
+            Cube[1, 1, 0].SetObjectCube(0, 0, -1, COlorHande[2], COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[6], Cube[1, 1, 0].AlphaColor);
+            Cube[1, 2, 0].SetObjectCube(0, 1, -1, COlorHande[2], COlorHande[6], COlorHande[6], COlorHande[4], COlorHande[6], COlorHande[6], Cube[1, 2, 0].AlphaColor);
+
+            Cube[2, 0, 0].SetObjectCube(1, -1, -1, COlorHande[2], COlorHande[5], COlorHande[6], COlorHande[6], COlorHande[3], COlorHande[6], Cube[2, 0, 0].AlphaColor);
+            Cube[2, 1, 0].SetObjectCube(1, 0, -1, COlorHande[2], COlorHande[5], COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[6], Cube[2, 1, 0].AlphaColor);
+            Cube[2, 2, 0].SetObjectCube(1, 1, -1, COlorHande[2], COlorHande[5], COlorHande[6], COlorHande[4], COlorHande[6], COlorHande[6], Cube[2, 2, 0].AlphaColor);
+//
+
+            Cube[0, 0, 1].SetObjectCube(-1, -1, 0, COlorHande[6], COlorHande[6], COlorHande[0], COlorHande[6], COlorHande[3], COlorHande[6], Cube[0, 0, 1].AlphaColor);
+            Cube[0, 1, 1].SetObjectCube(-1, 0, 0, COlorHande[6], COlorHande[6], COlorHande[0], COlorHande[6], COlorHande[6], COlorHande[6], Cube[0, 1, 1].AlphaColor);
+            Cube[0, 2, 1].SetObjectCube(-1, 1, 0, COlorHande[6], COlorHande[6], COlorHande[0], COlorHande[4], COlorHande[6], COlorHande[6], Cube[0, 2, 1].AlphaColor);
+
+            Cube[1, 0, 1].SetObjectCube(0, -1, 0, COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[3], COlorHande[6], Cube[1, 0, 1].AlphaColor);
+            Cube[1, 1, 1].SetObjectCube(0, 0, 0, COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[6], Cube[1, 1, 1].AlphaColor);
+            Cube[1, 2, 1].SetObjectCube(0, 1, 0, COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[4], COlorHande[6], COlorHande[6], Cube[1, 2, 1].AlphaColor);
+
+            Cube[2, 0, 1].SetObjectCube(1, -1, 0, COlorHande[6], COlorHande[5], COlorHande[6], COlorHande[6], COlorHande[3], COlorHande[6], Cube[2, 0, 1].AlphaColor);
+            Cube[2, 1, 1].SetObjectCube(1, 0, 0, COlorHande[6], COlorHande[5], COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[6], Cube[2, 1, 1].AlphaColor);
+            Cube[2, 2, 1].SetObjectCube(1, 1, 0, COlorHande[6], COlorHande[5], COlorHande[6], COlorHande[4], COlorHande[6], COlorHande[6], Cube[2, 2, 1].AlphaColor);
+
+            Cube[0, 0, 2].SetObjectCube(-1, -1, 1, COlorHande[6], COlorHande[6], COlorHande[0], COlorHande[6], COlorHande[3], COlorHande[1], Cube[0, 0, 2].AlphaColor);
+            Cube[0, 1, 2].SetObjectCube(-1, 0, 1, COlorHande[6], COlorHande[6], COlorHande[0], COlorHande[6], COlorHande[6], COlorHande[1], Cube[0, 1, 2].AlphaColor);
+            Cube[0, 2, 2].SetObjectCube(-1, 1, 1, COlorHande[6], COlorHande[6], COlorHande[0], COlorHande[4], COlorHande[6], COlorHande[1], Cube[0, 2, 2].AlphaColor);
+
+            Cube[1, 0, 2].SetObjectCube(0, -1, 1, COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[3], COlorHande[1], Cube[1, 0, 2].AlphaColor);
+            Cube[1, 1, 2].SetObjectCube(0, 0, 1, COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[1], Cube[1, 1, 2].AlphaColor);
+            Cube[1, 2, 2].SetObjectCube(0, 1, 1, COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[4], COlorHande[6], COlorHande[1], Cube[1, 2, 2].AlphaColor);
+
+            Cube[2, 0, 2].SetObjectCube(1, -1, 1, COlorHande[6], COlorHande[5], COlorHande[6], COlorHande[6], COlorHande[3], COlorHande[1], Cube[2, 0, 2].AlphaColor);
+            Cube[2, 1, 2].SetObjectCube(1, 0, 1, COlorHande[6], COlorHande[5], COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[1], Cube[2, 1, 2].AlphaColor);
+            Cube[2, 2, 2].SetObjectCube(1, 1, 1, COlorHande[6], COlorHande[5], COlorHande[6], COlorHande[4], COlorHande[6], COlorHande[1], Cube[2, 2, 2].AlphaColor);
+
+
+
 
         }
-
-        public void WriteCube(float[] CFront, float[] CRight, float[] CLeft, float[] CTop, float[] CDown, float[] CBot, float AlphaSelect)
-        {
-            Gl.glEnable(Gl.GL_LINE_STIPPLE);
-
-            Gl.glBegin(Gl.GL_QUADS); //front
-            Gl.glColor4f(CFront[0], CFront[1], CFront[2], AlphaSelect);
-            Gl.glVertex3d(0, 0, 0);
-            Gl.glVertex3d(1, 0, 0);
-            Gl.glVertex3d(1, 1, 0);
-            Gl.glVertex3d(0, 1, 0);
-            Gl.glEnd();
-
-
-            Gl.glBegin(Gl.GL_QUADS); //top
-            Gl.glColor4f(CTop[0], CTop[1], CTop[2], AlphaSelect);
-            Gl.glVertex3d(0, 1, 0);
-            Gl.glVertex3d(0, 1, 1);
-            Gl.glVertex3d(1, 1, 1);
-            Gl.glVertex3d(1, 1, 0);
-            Gl.glEnd();
-
-
-            Gl.glBegin(Gl.GL_QUADS); // Right
-            Gl.glColor4f(CRight[0], CRight[1], CRight[2], AlphaSelect);
-            Gl.glVertex3d(1, 0, 0);
-            Gl.glVertex3d(1, 0, 1);
-            Gl.glVertex3d(1, 1, 1);
-            Gl.glVertex3d(1, 1, 0);
-            Gl.glEnd();
-
-
-            Gl.glBegin(Gl.GL_QUADS); // down
-            Gl.glColor4f(CDown[0], CDown[1], CDown[2], AlphaSelect);
-            Gl.glVertex3d(0, 0, 0);
-            Gl.glVertex3d(1, 0, 0);
-            Gl.glVertex3d(1, 0, 1);
-            Gl.glVertex3d(0, 0, 1);
-            Gl.glEnd();
-
-
-            Gl.glBegin(Gl.GL_QUADS);//left
-            Gl.glColor4f(CLeft[0], CLeft[1], CLeft[2], AlphaSelect);
-            Gl.glVertex3d(0, 0, 0);
-            Gl.glVertex3d(0, 1, 0);
-            Gl.glVertex3d(0, 1, 1);
-            Gl.glVertex3d(0, 0, 1);
-            Gl.glEnd();
-
-
-            Gl.glBegin(Gl.GL_QUADS); //bot
-            Gl.glColor4f(CBot[0], CBot[1], CBot[2], AlphaSelect);
-            Gl.glVertex3d(0, 0, 1);
-            Gl.glVertex3d(0, 1, 1);
-            Gl.glVertex3d(1, 1, 1);
-            Gl.glVertex3d(1, 0, 1);
-            Gl.glEnd();
-
-
-            Gl.glDisable(Gl.GL_LINE_STIPPLE);
-        } //рисование одного кубика 
 
         public void WriteCubeRub()
         {
 
-            //красный 0
-            //зеленый 1
-            //синий 2
-            //Белый 3
-            //желтый 4
-            //оранджеый 5
-            //черный 6
-            // front right left top down bot 
-            //--------------------------------------------------// z=-1 +
-            Gl.glPushMatrix();
-            Gl.glPushMatrix();
-            RotationForCube(0, 0, 0);
-            Gl.glTranslated(-1, -1, -1);
-            WriteCube(COlorHande[2], COlorHande[6], COlorHande[0], COlorHande[6], COlorHande[3], COlorHande[6], 1);
-            WriteSoidCub();
-            Gl.glPopMatrix();
-
-            Gl.glPushMatrix();
-            RotationForCube(0, 1, 0);
-            Gl.glTranslated(-1, 0, -1);
-            WriteCube(COlorHande[2], COlorHande[6], COlorHande[0], COlorHande[6], COlorHande[6], COlorHande[6], 1);
-            WriteSoidCub();
-            Gl.glPopMatrix();
-
-            Gl.glTranslated(0, 0, 0);
-            Gl.glPushMatrix();
-            RotationForCube(0, 0, 0);
-            Gl.glTranslated(-1, 1, -1);
-            WriteCube(COlorHande[2], COlorHande[6], COlorHande[0], COlorHande[4], COlorHande[6], COlorHande[6], 1);
-            WriteSoidCub();
-            Gl.glPopMatrix();
-
-            //--------------------------------------------------//z=-1 + 
-
-            Gl.glPushMatrix();
-            RotationForCube(1, 0, 0);
-            Gl.glTranslated(0, -1, -1);
-            WriteCube(COlorHande[2], COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[3], COlorHande[6], 1);
-            WriteSoidCub();
-            Gl.glPopMatrix();
-
-            Gl.glPushMatrix();
-            RotationForCube(1, 1, 0);
-
-            Gl.glTranslated(0, 0, -1);//5//Серединка //110
-            WriteCube(COlorHande[2], COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[6], Cube[1, 1, 0].AlphaColor);
-            WriteSoidCub();
-            Gl.glPopMatrix();
-
-            Gl.glPushMatrix();
-            RotationForCube(1, 2, 0);
-            Gl.glTranslated(0, 1, -1);
-            WriteCube(COlorHande[2], COlorHande[6], COlorHande[6], COlorHande[4], COlorHande[6], COlorHande[6], 1);
-            WriteSoidCub();
-            Gl.glPopMatrix();
-            //--------------------------------------------------//z=-1 +
-            Gl.glPushMatrix();
-            RotationForCube(2, 0, 0);
-            Gl.glTranslated(1, -1, -1);
-            WriteCube(COlorHande[2], COlorHande[5], COlorHande[6], COlorHande[6], COlorHande[3], COlorHande[6], 1);
-            WriteSoidCub();
-            Gl.glPopMatrix();
-
-            Gl.glPushMatrix();
-            RotationForCube(2, 1, 0);
-            Gl.glTranslated(1, 0, -1);
-            WriteCube(COlorHande[2], COlorHande[5], COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[6], 1);
-            WriteSoidCub();
-            Gl.glPopMatrix();
-
-            Gl.glPushMatrix();
-            RotationForCube(2, 2, 0);
-            Gl.glTranslated(1, 1, -1);
-            WriteCube(COlorHande[2], COlorHande[5], COlorHande[6], COlorHande[4], COlorHande[6], COlorHande[6], 1);
-            WriteSoidCub();
-            Gl.glPopMatrix();
-
-            //--------------------------------------------------//z=0 +
-            Gl.glPushMatrix();
-            RotationForCube(0, 0, 1);
-            Gl.glTranslated(-1, -1, 0);
-            WriteCube(COlorHande[6], COlorHande[6], COlorHande[0], COlorHande[6], COlorHande[3], COlorHande[6], 1);
-            WriteSoidCub();
-            Gl.glPopMatrix();
-
-            Gl.glPushMatrix();
-            RotationForCube(0, 1, 1);
-            Gl.glTranslated(-1, 0, 0);
-            //середина......................... 000
-            WriteCube(COlorHande[6], COlorHande[6], COlorHande[0], COlorHande[6], COlorHande[6], COlorHande[6], Cube[0, 1, 1].AlphaColor);
-            WriteSoidCub();
-            Gl.glPopMatrix();
-
-            Gl.glPushMatrix();
-            RotationForCube(0, 2, 1);
-            Gl.glTranslated(-1, 1, 0);
-            WriteCube(COlorHande[6], COlorHande[6], COlorHande[0], COlorHande[4], COlorHande[6], COlorHande[6], 1);
-            WriteSoidCub();
-            Gl.glPopMatrix();
-            //--------------------------------------------------//z=0 +
-            Gl.glPushMatrix();
-            RotationForCube(1, 0, 1);
-            Gl.glTranslated(0, -1, 0); // середина
-            WriteCube(COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[3], COlorHande[6], Cube[1, 0, 1].AlphaColor);
-            WriteSoidCub();
-            Gl.glPopMatrix();
-
-            Gl.glPushMatrix();
-            RotationForCube(1, 1, 1);
-            Gl.glTranslated(0, 0, 0);
-            WriteCube(COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[6], 1); //нулевой  
-            WriteSoidCub();
-            Gl.glPopMatrix();
-
-            Gl.glPushMatrix();
-            RotationForCube(1, 2, 1);
-            Gl.glTranslated(0, 1, 0);
-            // середина
-            WriteCube(COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[4], COlorHande[6], COlorHande[6], Cube[1, 2, 1].AlphaColor);
-            WriteSoidCub();
-            Gl.glPopMatrix();
-            //--------------------------------------------------//z=0 +
-            Gl.glPushMatrix();
-            RotationForCube(2, 0, 1);
-            Gl.glTranslated(1, -1, 0);
-            WriteCube(COlorHande[6], COlorHande[5], COlorHande[6], COlorHande[6], COlorHande[3], COlorHande[6], 1);
-            WriteSoidCub();
-            Gl.glPopMatrix();
-
-            Gl.glPushMatrix();
-            RotationForCube(2, 1, 1);
-            Gl.glTranslated(1, 0, 0);
-            //Середина!!!!
-            WriteCube(COlorHande[6], COlorHande[5], COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[6], Cube[2, 1, 1].AlphaColor);
-            WriteSoidCub();
-            Gl.glPopMatrix();
-
-            Gl.glPushMatrix();
-            RotationForCube(2, 2, 1);
-            Gl.glTranslated(1, 1, 0);
-            WriteCube(COlorHande[6], COlorHande[5], COlorHande[6], COlorHande[4], COlorHande[6], COlorHande[6], 1);
-            WriteSoidCub();
-            Gl.glPopMatrix();
-
-
-            //--------------------------------------------------//z=1 +
-            Gl.glPushMatrix();
-            RotationForCube(0, 0, 2);
-            Gl.glTranslated(-1, -1, 1);
-            WriteCube(COlorHande[6], COlorHande[6], COlorHande[0], COlorHande[6], COlorHande[3], COlorHande[1], 1);
-            WriteSoidCub();
-            Gl.glPopMatrix();
-
-            Gl.glPushMatrix();
-            RotationForCube(0, 1, 2);
-            Gl.glTranslated(-1, 0, 1);
-            WriteCube(COlorHande[6], COlorHande[6], COlorHande[0], COlorHande[6], COlorHande[6], COlorHande[1], 1);
-            WriteSoidCub();
-            Gl.glPopMatrix();
-
-            Gl.glPushMatrix();
-            RotationForCube(0, 2, 2);
-            Gl.glTranslated(-1, 1, 1);
-            WriteCube(COlorHande[6], COlorHande[6], COlorHande[0], COlorHande[4], COlorHande[6], COlorHande[1], 1);
-            WriteSoidCub();
-            Gl.glPopMatrix();
-            //--------------------------------------------------//z=1 - 
-            Gl.glPushMatrix();
-            RotationForCube(1, 0, 2);
-            Gl.glTranslated(0, -1, 1);
-            WriteCube(COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[3], COlorHande[1], 1); ;
-            WriteSoidCub();
-            Gl.glPopMatrix();
-
-            Gl.glPushMatrix();
-            RotationForCube(1, 1, 2);
-            Gl.glTranslated(0, 0, 1);
-            // тут что то не то Середина !!
-            WriteCube(COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[1], Cube[1, 1, 2].AlphaColor);
-            WriteSoidCub();
-            Gl.glPopMatrix();
-
-            Gl.glPushMatrix();
-            RotationForCube(1, 2, 2);
-            Gl.glTranslated(0, 1, 1);
-            WriteCube(COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[4], COlorHande[6], COlorHande[1], 1);
-            WriteSoidCub();
-            Gl.glPopMatrix();
-            //--------------------------------------------------//z=1
-            Gl.glPushMatrix();
-            RotationForCube(2, 0, 2);
-            Gl.glTranslated(1, -1, 1);
-            WriteCube(COlorHande[6], COlorHande[5], COlorHande[6], COlorHande[6], COlorHande[3], COlorHande[1], 1);
-            WriteSoidCub();
-            Gl.glPopMatrix();
-
-            Gl.glPushMatrix();
-            RotationForCube(2, 1, 2);
-            Gl.glTranslated(1, 0, 1);
-            WriteCube(COlorHande[6], COlorHande[5], COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[1], 1);
-            WriteSoidCub();
-            Gl.glPopMatrix();
-
-            Gl.glPushMatrix();
-            RotationForCube(2, 2, 2);
-            Gl.glTranslated(1, 1, 1);
-            WriteCube(COlorHande[6], COlorHande[5], COlorHande[6], COlorHande[4], COlorHande[6], COlorHande[1], 1);
-            WriteSoidCub();
-            Gl.glPopMatrix();
-            //--------------------------------------------------//z=1
-
-
-            // Gl.glPopMatrix();
+            for (int Z = 0; Z < 3; Z++)
+                for (int X = 0; X < 3; X++)
+                    for (int Y = 0; Y < 3; Y++)
+                    {  
+ 
+                       Cube[X, Y, Z].DrawCube();
+                    
+                    }
         } // рисование кубика-рубика
-
-        public void WriteSoidCub()
-        {
-            Gl.glPolygonMode(Gl.GL_FRONT_AND_BACK, Gl.GL_LINE);
-            Gl.glLineWidth(7);
-            WriteCube(COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[6], 1);
-            Gl.glPolygonMode(Gl.GL_FRONT_AND_BACK, Gl.GL_FILL);
-
-
-
-        } // рисоване граней кубика
 
         private void button1_Click(object sender, EventArgs e) // основная работа 
         {
@@ -509,6 +422,8 @@ namespace Tao_OpenGl_inicialised11
             Gl.glRotated(MouseDeltaX, 0, -1, 0);
             Gl.glRotated(MouseDeltaY, 1, 0, 0);
             Gl.glTranslated(-0.5f, -0.5f, -0.5f);
+            
+
             // Gl.glRotated(Math.Sqrt(MouseDeltaX*MouseDeltaX+MouseDeltaY*MouseDeltaY), 0, 0, 1);
 
             WriteCubeRub();
@@ -520,7 +435,7 @@ namespace Tao_OpenGl_inicialised11
 
         }
 
-        void AnimationOpenMenu(object sender, EventArgs e)
+        private void AnimationOpenMenu(object sender, EventArgs e)
         {
 
             if (PanelMenu.Left >= AnT.Width - PanelMenu.Width)
@@ -537,7 +452,7 @@ namespace Tao_OpenGl_inicialised11
 
         } // анимация для открывания "меню "
 
-        void AnimationCloseMenu(object sender, EventArgs e)
+        private void AnimationCloseMenu(object sender, EventArgs e)
         {
             if (PanelMenu.Location.X <= AnT.Width + PanelMenu.Width + 10)
             {
@@ -658,7 +573,7 @@ namespace Tao_OpenGl_inicialised11
         private void RecTimer_Tick(object sender, EventArgs e)// пофиксить синхрониацию 
         {
             TimeForRecords.MilleSecondsTime += 1;
-            if (TimeForRecords.MilleSecondsTime >= 100)
+            if (TimeForRecords.MilleSecondsTime >= 10)
             {
                 TimeForRecords.MilleSecondsTime = 0;
                 TimeForRecords.SecondsTime += 1;
@@ -719,289 +634,379 @@ namespace Tao_OpenGl_inicialised11
 
         private int[] ConvertIntNameToMass(int IntName)
         {
-            unsafe
-            {
-                int[] ResultMass = new int[3];
 
-                for (int Z = 0; Z < 3; Z++)
-                    for (int X = 0; X < 3; X++)
-                        for (int Y = 0; Y < 3; Y++)
+            int[] ResultMass = new int[3];
+
+            for (int Z = 0; Z < 3; Z++)
+                for (int X = 0; X < 3; X++)
+                    for (int Y = 0; Y < 3; Y++)
+                    {
+                        if (Cube[X, Y, Z].IntName == IntName)
                         {
-                            if (Cube[X, Y, Z].IntName == IntName)
-                            {
-                                ResultMass[0] = X;
-                                ResultMass[1] = Y;
-                                ResultMass[2] = Z;
-                                break;
-                            }
-
+                            ResultMass[0] = X;
+                            ResultMass[1] = Y;
+                            ResultMass[2] = Z;
+                            break;
                         }
 
-                return ResultMass;
-            }
-        } //конвертация из IntNameCube в Его номера в масииве
+
+
+
+
+                    }
+            return ResultMass;
+        }//конвертация из IntNameCube в Его номера в масииве
 
         private void AnT_KeyDown(object sender, KeyEventArgs e)
         {
-            unsafe
-            {
-                switch (e.KeyCode)
-                {
-                    case Keys.W:
-                        {
-                            if (SelectedCube.Y == 2)
-                            {
-                                {
-                                    if (SelectedCube.Z == 1)
-                                    {
-                                        SelectedCube.Y += 1;
-                                        SelectedCube.Z = 2;
-                                    }
-                                    else
-                                    {
-                                        if (SelectedCube.Z == 3)
-                                        {
-                                            SelectedCube.Y -= 1;
-                                            SelectedCube.Z = 2;
-                                        }
-                                        else
-                                        {
-                                            if (SelectedCube.Z == 2)
-                                            {
-                                                if ((SelectedCube.X == 1) || (SelectedCube.X == 3))
-                                                {
-                                                    { SelectedCube.Y += 1; SelectedCube.Z = 2; SelectedCube.X = 2; }
-                                                }
 
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            else
+            switch (e.KeyCode)
+            {
+                case Keys.W:
+                    {
+                        if (SelectedCube.Y == 2)
+                        {
                             {
-                                if (SelectedCube.Y == 3)
+                                if (SelectedCube.Z == 1)
                                 {
-                                    SelectedCube.Y -= 1;
-                                    SelectedCube.Z = 3;
+                                    SelectedCube.Y += 1;
+                                    SelectedCube.Z = 2;
                                 }
                                 else
                                 {
-                                    if (SelectedCube.Y == 1)
-                                    {
-                                        SelectedCube.Y += 1;
-                                        SelectedCube.Z = 1;
-                                    }
-                                }
-                            }
-                            break;
-                        }
-                    case Keys.S:
-                        {
-                            if (SelectedCube.Y == 2)
-                            {
-                                {
-                                    if (SelectedCube.Z == 1)
+                                    if (SelectedCube.Z == 3)
                                     {
                                         SelectedCube.Y -= 1;
                                         SelectedCube.Z = 2;
                                     }
                                     else
                                     {
-                                        if (SelectedCube.Z == 3)
+                                        if (SelectedCube.Z == 2)
                                         {
-                                            SelectedCube.Y += 1;
-                                            SelectedCube.Z = 2;
-                                        }
-                                        else
-                                        {
-                                            if (SelectedCube.Z == 2)
+                                            if ((SelectedCube.X == 1) || (SelectedCube.X == 3))
                                             {
-                                                if ((SelectedCube.X == 1) || (SelectedCube.X == 3))
-                                                {
-                                                    SelectedCube.X = 2;
-                                                    SelectedCube.Y -= 1;
-                                                    SelectedCube.Z = 2;
-                                                }
+                                                { SelectedCube.Y += 1; SelectedCube.Z = 2; SelectedCube.X = 2; }
                                             }
+
                                         }
                                     }
                                 }
                             }
-                            else
-                            {
-                                if (SelectedCube.Y == 3)
-                                {
-                                    SelectedCube.Y -= 1;
-                                    SelectedCube.Z = 1;
-                                }
-                                else
-                                {
-                                    if (SelectedCube.Y == 1)
-                                    {
-                                        SelectedCube.Y += 1;
-                                        SelectedCube.Z = 3;
-                                    }
-
-                                }
-                            }
-                            break;
                         }
-
-                    case Keys.D:
+                        else
                         {
-                            if (SelectedCube.X == 1)
+                            if (SelectedCube.Y == 3)
                             {
-                                SelectedCube.X += 1;
+                                SelectedCube.Y -= 1;
                                 SelectedCube.Z = 3;
                             }
                             else
                             {
-                                if (SelectedCube.X == 2)
+                                if (SelectedCube.Y == 1)
                                 {
-                                    if (SelectedCube.Z == 1)
+                                    SelectedCube.Y += 1;
+                                    SelectedCube.Z = 1;
+                                }
+                            }
+                        }
+                        break;
+                    }
+                case Keys.S:
+                    {
+                        if (SelectedCube.Y == 2)
+                        {
+                            {
+                                if (SelectedCube.Z == 1)
+                                {
+                                    SelectedCube.Y -= 1;
+                                    SelectedCube.Z = 2;
+                                }
+                                else
+                                {
+                                    if (SelectedCube.Z == 3)
                                     {
-                                        SelectedCube.X -= 1;
+                                        SelectedCube.Y += 1;
                                         SelectedCube.Z = 2;
                                     }
                                     else
                                     {
-                                        if (SelectedCube.Z == 3)
+                                        if (SelectedCube.Z == 2)
                                         {
-                                            SelectedCube.X += 1;
-                                            SelectedCube.Z = 2;
-                                        }
-                                        else
-                                        {
-                                            if (SelectedCube.Z == 2)
+                                            if ((SelectedCube.X == 1) || (SelectedCube.X == 3))
                                             {
-                                                if ((SelectedCube.Y == 3) || (SelectedCube.Y == 1))
-                                                {
-                                                    SelectedCube.Y = 2;
-                                                    SelectedCube.Z = 2;
-                                                    SelectedCube.X -= 1;
-                                                }
+                                                SelectedCube.X = 2;
+                                                SelectedCube.Y -= 1;
+                                                SelectedCube.Z = 2;
                                             }
                                         }
-
-                                    }
-                                }
-                                else
-                                {
-                                    if (SelectedCube.X == 3)
-                                    {
-                                        SelectedCube.X -= 1;
-                                        SelectedCube.Z = 1;
                                     }
                                 }
                             }
-
-                            break;
                         }
-                    case Keys.A:
+                        else
                         {
-                            if (SelectedCube.X == 1)
+                            if (SelectedCube.Y == 3)
                             {
-                                SelectedCube.X += 1;
+                                SelectedCube.Y -= 1;
                                 SelectedCube.Z = 1;
                             }
                             else
                             {
-                                if (SelectedCube.X == 2)
+                                if (SelectedCube.Y == 1)
                                 {
-                                    if (SelectedCube.Z == 1)
+                                    SelectedCube.Y += 1;
+                                    SelectedCube.Z = 3;
+                                }
+
+                            }
+                        }
+                        break;
+                    }
+
+                case Keys.D:
+                    {
+                        if (SelectedCube.X == 1)
+                        {
+                            SelectedCube.X += 1;
+                            SelectedCube.Z = 3;
+                        }
+                        else
+                        {
+                            if (SelectedCube.X == 2)
+                            {
+                                if (SelectedCube.Z == 1)
+                                {
+                                    SelectedCube.X -= 1;
+                                    SelectedCube.Z = 2;
+                                }
+                                else
+                                {
+                                    if (SelectedCube.Z == 3)
                                     {
                                         SelectedCube.X += 1;
                                         SelectedCube.Z = 2;
                                     }
                                     else
                                     {
-                                        if (SelectedCube.Z == 3)
+                                        if (SelectedCube.Z == 2)
                                         {
-                                            SelectedCube.X -= 1;
-                                            SelectedCube.Z = 2;
-                                        }
-                                        else
-                                        {
-                                            if (SelectedCube.Z == 2)
+                                            if ((SelectedCube.Y == 3) || (SelectedCube.Y == 1))
                                             {
-                                                if ((SelectedCube.Y == 1) || (SelectedCube.Y == 3))
-                                                {
-                                                    SelectedCube.Y = 2;
-                                                    SelectedCube.Z = 2;
-                                                    SelectedCube.X += 1;
-                                                }
+                                                SelectedCube.Y = 2;
+                                                SelectedCube.Z = 2;
+                                                SelectedCube.X -= 1;
+                                            }
+                                        }
+                                    }
+
+                                }
+                            }
+                            else
+                            {
+                                if (SelectedCube.X == 3)
+                                {
+                                    SelectedCube.X -= 1;
+                                    SelectedCube.Z = 1;
+                                }
+                            }
+                        }
+
+                        break;
+                    }
+                case Keys.A:
+                    {
+                        if (SelectedCube.X == 1)
+                        {
+                            SelectedCube.X += 1;
+                            SelectedCube.Z = 1;
+                        }
+                        else
+                        {
+                            if (SelectedCube.X == 2)
+                            {
+                                if (SelectedCube.Z == 1)
+                                {
+                                    SelectedCube.X += 1;
+                                    SelectedCube.Z = 2;
+                                }
+                                else
+                                {
+                                    if (SelectedCube.Z == 3)
+                                    {
+                                        SelectedCube.X -= 1;
+                                        SelectedCube.Z = 2;
+                                    }
+                                    else
+                                    {
+                                        if (SelectedCube.Z == 2)
+                                        {
+                                            if ((SelectedCube.Y == 1) || (SelectedCube.Y == 3))
+                                            {
+                                                SelectedCube.Y = 2;
+                                                SelectedCube.Z = 2;
+                                                SelectedCube.X += 1;
                                             }
                                         }
                                     }
                                 }
-                                else
+                            }
+                            else
+                            {
+                                if (SelectedCube.X == 3)
                                 {
-                                    if (SelectedCube.X == 3)
-                                    {
-                                        SelectedCube.X -= 1;
-                                        SelectedCube.Z = 3;
-                                    }
+                                    SelectedCube.X -= 1;
+                                    SelectedCube.Z = 3;
                                 }
                             }
-                            break;
                         }
-                    case Keys.Space: // переворот 
+                        break;
+                    }
+                case Keys.Space: // переворот 
+                    {
+                       
+
+                        label3.Text = "Нажат пробел на " + Convert.ToString(SelectedCube.X) + ':' + Convert.ToString(SelectedCube.Y) + ':' + Convert.ToString(SelectedCube.Z);
+
+                        if ((SelectedCube.X == 2) & (SelectedCube.Y == 2) & (SelectedCube.Z == 1))//1,1,0
                         {
-                            if ((SelectedCube.X == 1) & (SelectedCube.Y == 1) & (SelectedCube.Z == 0))
+                            SwapArrCube(ref Cube[0, 0, 0], ref Cube[0, 2, 0]);
+                            SwapArrCube(ref Cube[0, 0, 0], ref Cube[2, 2, 0]);
+                            SwapArrCube(ref Cube[0, 0, 0], ref Cube[2, 0, 0]);
+
+                            SwapArrCube(ref Cube[0, 1, 0], ref Cube[1, 2, 0]);
+                            SwapArrCube(ref Cube[0, 1, 0], ref Cube[2, 1, 0]);
+                            SwapArrCube(ref Cube[0, 1, 0], ref Cube[2, 0, 0]);
+
+                            //Cube[0, 0, 0].RotationAngleZ += 90;
+                            //Cube[1, 0, 0].RotationAngleZ += 90;
+                            //Cube[2, 0, 0].RotationAngleZ += 90;
+
+                            //Cube[0, 1, 0].RotationAngleZ += 90;
+                            //Cube[1, 1, 0].RotationAngleZ += 90;
+                            //Cube[2, 1, 0].RotationAngleZ += 90;
+
+                            //Cube[0, 2, 0].RotationAngleZ += 90;
+                            //Cube[1, 2, 0].RotationAngleZ += 90;
+                            //Cube[2, 2, 0].RotationAngleZ += 90;
+
+
+                            
+                            
+                        }
+                        else
+                        {
+                            if ((SelectedCube.X == 2) & (SelectedCube.Y == 3) & (SelectedCube.Z == 2))//1,2,1
                             {
+
+                                SwapArrCube(ref Cube[0, 2, 0], ref Cube[0, 2, 2]);
+                                SwapArrCube(ref Cube[0, 2, 0], ref Cube[2, 2, 2]);
+                                SwapArrCube(ref Cube[0, 2, 0], ref Cube[2, 2, 1]);
+
+                                SwapArrCube(ref Cube[0, 2, 1], ref Cube[1, 2, 2]);
+                                SwapArrCube(ref Cube[0, 2, 1], ref Cube[2, 2, 1]);
+                                SwapArrCube(ref Cube[0, 2, 1], ref Cube[2, 2, 0]);
+
+                                //Cube[0, 2, 0].RotationAngleY += 90;
+                                //Cube[1, 2, 0].RotationAngleY += 90;
+                                //Cube[2, 2, 0].RotationAngleY += 90;
+
+                                //Cube[0, 2, 1].RotationAngleY += 90;
+                                //Cube[1, 2, 1].RotationAngleY += 90;
+                                //Cube[2, 2, 1].RotationAngleY += 90;
+
+                                //Cube[0, 2, 2].RotationAngleY += 90;
+                                //Cube[1, 2, 2].RotationAngleY += 90;
+                                //Cube[2, 2, 2].RotationAngleY += 90;
+
 
                             }
                             else
                             {
-                                if ((SelectedCube.X == 1) & (SelectedCube.Y == 2) & (SelectedCube.Z == 1))
+                                if ((SelectedCube.X == 3) & (SelectedCube.Y == 2) & (SelectedCube.Z == 2))//2,1,1
                                 {
+
+                                    SwapArrCube(ref Cube[2, 0, 0], ref Cube[2, 2, 0]);
+                                    SwapArrCube(ref Cube[2, 0, 0], ref Cube[2, 2, 2]);
+                                    SwapArrCube(ref Cube[2, 0, 0], ref Cube[2, 0, 2]);
+
+                                    SwapArrCube(ref Cube[2, 1, 0], ref Cube[2, 2, 1]);
+                                    SwapArrCube(ref Cube[2, 1, 0], ref Cube[2, 1, 3]);
+                                    SwapArrCube(ref Cube[2, 1, 0], ref Cube[2, 0, 1]);
+
+
 
                                 }
                                 else
                                 {
-                                    if ((SelectedCube.X == 2) & (SelectedCube.Y == 1) & (SelectedCube.Z == 1))
+                                    if ((SelectedCube.X == 1) & (SelectedCube.Y == 2) & (SelectedCube.Z == 2))//0,1,1
                                     {
+
+
+                                        SwapArrCube(ref Cube[0, 0, 0], ref Cube[0, 2, 0]);
+                                        SwapArrCube(ref Cube[0, 0, 0], ref Cube[0, 2, 2]);
+                                        SwapArrCube(ref Cube[0, 0, 0], ref Cube[0, 0, 2]);
+
+                                        SwapArrCube(ref Cube[0, 1, 0], ref Cube[0, 2, 1]);
+                                        SwapArrCube(ref Cube[0, 1, 0], ref Cube[0, 1, 2]);
+                                        SwapArrCube(ref Cube[0, 1, 0], ref Cube[0, 0, 1]);
 
                                     }
                                     else
                                     {
-                                        if ((SelectedCube.X == 0) & (SelectedCube.Y == 1) & (SelectedCube.Z == 1))
+                                        if ((SelectedCube.X == 2) & (SelectedCube.Y == 1) & (SelectedCube.Z == 2))//1,0,1
                                         {
+
+                                            SwapArrCube(ref Cube[0, 0, 0], ref Cube[2, 0, 0]);
+                                            SwapArrCube(ref Cube[0, 0, 0], ref Cube[2, 0, 2]);
+                                            SwapArrCube(ref Cube[0, 0, 0], ref Cube[0, 0, 2]);
+
+                                            SwapArrCube(ref Cube[1, 0, 0], ref Cube[2, 0, 1]);
+                                            SwapArrCube(ref Cube[1, 0, 0], ref Cube[1, 0, 2]);
+                                            SwapArrCube(ref Cube[1, 0, 0], ref Cube[0, 0, 1]);
 
                                         }
                                         else
                                         {
-                                            if ((SelectedCube.X == 1) & (SelectedCube.Y == 0) & (SelectedCube.Z == 1))
+                                            if ((SelectedCube.X == 2) & (SelectedCube.Y == 2) & (SelectedCube.Z == 3))//1,1,2
                                             {
 
-                                            }
-                                            else
-                                            {
-                                                if ((SelectedCube.X == 1) & (SelectedCube.Y == 1) & (SelectedCube.Z == 2))
-                                                {
+                                                SwapArrCube(ref Cube[0, 2, 2], ref Cube[2, 2, 2]);
+                                                SwapArrCube(ref Cube[0, 2, 2], ref Cube[2, 0, 2]);
+                                                SwapArrCube(ref Cube[0, 2, 2], ref Cube[0, 0, 2]);
 
-                                                }
+                                                SwapArrCube(ref Cube[1, 2, 0], ref Cube[2, 2, 1]);
+                                                SwapArrCube(ref Cube[1, 2, 0], ref Cube[1, 2, 2]);
+                                                SwapArrCube(ref Cube[1, 2, 0], ref Cube[0, 2, 1]);
+
                                             }
                                         }
                                     }
                                 }
                             }
-
-
-
-                            break;
                         }
-                }
-                Cube[1, 1, 0].SetAplhaColor(NormalAlphaColor) ;
-                Cube[1, 2, 1].SetAplhaColor(NormalAlphaColor);
-                Cube[2, 1, 1].SetAplhaColor(NormalAlphaColor);
-                Cube[0, 1, 1].SetAplhaColor(NormalAlphaColor);
-                Cube[1, 0, 1].SetAplhaColor(NormalAlphaColor);
-                Cube[1, 1, 2].SetAplhaColor(NormalAlphaColor);
-                Cube[SelectedCube.X - 1, SelectedCube.Y - 1, SelectedCube.Z - 1].AlphaColor = SelectAlphaColor;
 
+
+
+                        break;
+                    }
             }
+            Cube[1, 1, 0].AlphaColor = NormalAlphaColor;
+            Cube[1, 2, 1].AlphaColor = NormalAlphaColor;
+            Cube[2, 1, 1].AlphaColor = NormalAlphaColor;
+            Cube[0, 1, 1].AlphaColor = NormalAlphaColor;
+            Cube[1, 0, 1].AlphaColor = NormalAlphaColor;
+            Cube[1, 1, 2].AlphaColor = NormalAlphaColor;
+            Cube[SelectedCube.X - 1, SelectedCube.Y - 1, SelectedCube.Z - 1].AlphaColor = .6f;
+
+
+        }
+
+        private void SwapArrCube( ref ClassCube First, ref ClassCube Second)
+        {
+            ClassCube Temp = new ClassCube();
+            Temp = First;
+            First = Second;
+            Second = Temp;
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -1039,25 +1044,6 @@ namespace Tao_OpenGl_inicialised11
         {
             SettingsPanel.Visible = false;
         }
-
-
-        // unsafe SCube*[, ,] DynamicCubeStruct = new SCube*[3, 3, 3];
-
-        //void InicialiseDynamicCubeStruct()
-        //{
-
-
-
-        //        for (int Z = 0; Z < 3; Z++)
-        //            for (int X = 0; X < 3; X++)
-        //                for (int Y = 0; Y < 3; Y++)
-        //                {
-        //                    DynamicCubeStruct[X, Y, Z] = Cube[X, Y, Z];
-        //                }
-
-
-
-        //}
 
 
 

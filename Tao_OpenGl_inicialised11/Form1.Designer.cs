@@ -48,6 +48,7 @@
             this.ColorLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.label3 = new System.Windows.Forms.Label();
             this.PanelMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SettingsPanel.SuspendLayout();
@@ -201,7 +202,6 @@
             // 
             // RecTimer
             // 
-            this.RecTimer.Interval = 1;
             this.RecTimer.Tick += new System.EventHandler(this.RecTimer_Tick);
             // 
             // TimeLabel
@@ -301,12 +301,23 @@
             this.colorDialog1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.colorDialog1.SolidColorOnly = true;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.Location = new System.Drawing.Point(8, 355);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(104, 46);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "label";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(876, 500);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.SettingsPanel);
             this.Controls.Add(this.PauseLabel);
             this.Controls.Add(this.TimeLabel);
@@ -347,6 +358,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.Label ColorLabel;
+        private System.Windows.Forms.Label label3;
 
     }
 }
