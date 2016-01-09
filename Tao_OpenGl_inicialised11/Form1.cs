@@ -7,20 +7,54 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+
 
 using Tao.OpenGl;
 using Tao.FreeGlut;
 using Tao.Platform.Windows;
 
+using System.Xml;
+
 
 
 namespace Tao_OpenGl_inicialised11
 {
-
-
+    
     public partial class Form1 : Form
     {
+        public class RecType
+        {
+            public RecType(String _Name, Time _RecTime)
+            {
+                Name = _Name;
+                RecMin = _RecTime.MinuteTime;
+                RecSec = _RecTime.SecondsTime;
+                RecMilleSec = _RecTime.MilleSecondsTime;
 
+            }
+            public RecType(String _Name, int _RecMin, int _RecSec, int _RecMilleSec)
+            {
+                Name = _Name;
+                RecMin = _RecMin;
+                RecSec = RecSec;
+                RecMilleSec = _RecMilleSec;
+
+            }
+            public RecType()
+            {
+                Name = "No name";
+                RecMin = 0;
+                RecSec = 0;
+                RecMilleSec = 0;
+            }
+
+            public String Name;
+            public int RecMin;
+            public int RecSec;
+            public int RecMilleSec;
+
+        }
         public class ClassCube
         {
             public int IntName { get; set; }
@@ -71,10 +105,6 @@ namespace Tao_OpenGl_inicialised11
             }
             public void WriteCube()
             {
-                
-                
-               
-
                 Gl.glEnable(Gl.GL_LINE_STIPPLE);
 
                 Gl.glBegin(Gl.GL_QUADS); //front
@@ -86,7 +116,6 @@ namespace Tao_OpenGl_inicialised11
                 Gl.glVertex3d(0, 1, 0);
                 Gl.glEnd();
 
-
                 Gl.glBegin(Gl.GL_QUADS); //top
                 Gl.glColor4f(ColorCube[4][0], ColorCube[4][1], ColorCube[4][2], 1);
                 Gl.glVertex3d(0, 1, 0);
@@ -94,7 +123,6 @@ namespace Tao_OpenGl_inicialised11
                 Gl.glVertex3d(1, 1, 1);
                 Gl.glVertex3d(1, 1, 0);
                 Gl.glEnd();
-
 
                 Gl.glBegin(Gl.GL_QUADS); // Right
                 Gl.glColor4f(ColorCube[2][0], ColorCube[2][1], ColorCube[2][2], 1);
@@ -104,7 +132,6 @@ namespace Tao_OpenGl_inicialised11
                 Gl.glVertex3d(1, 1, 0);
                 Gl.glEnd();
 
-
                 Gl.glBegin(Gl.GL_QUADS); // down
                 Gl.glColor4f(ColorCube[5][0], ColorCube[5][1], ColorCube[5][2], 1);
                 Gl.glVertex3d(0, 0, 0);
@@ -112,7 +139,6 @@ namespace Tao_OpenGl_inicialised11
                 Gl.glVertex3d(1, 0, 1);
                 Gl.glVertex3d(0, 0, 1);
                 Gl.glEnd();
-
 
                 Gl.glBegin(Gl.GL_QUADS);//left
                 Gl.glColor4f(ColorCube[3][0], ColorCube[3][1], ColorCube[3][2], 1);
@@ -122,7 +148,6 @@ namespace Tao_OpenGl_inicialised11
                 Gl.glVertex3d(0, 0, 1);
                 Gl.glEnd();
 
-
                 Gl.glBegin(Gl.GL_QUADS); //bot
                 Gl.glColor4f(ColorCube[6][0], ColorCube[6][1], ColorCube[6][2], 1);
                 Gl.glVertex3d(0, 0, 1);
@@ -131,10 +156,7 @@ namespace Tao_OpenGl_inicialised11
                 Gl.glVertex3d(1, 0, 1);
                 Gl.glEnd();
 
-
                 Gl.glDisable(Gl.GL_LINE_STIPPLE);
-                
-                
             } //рисование одного кубика 
             public void WriteSoidCub()
             {
@@ -194,23 +216,8 @@ namespace Tao_OpenGl_inicialised11
             } // рисоване граней кубика
             public void DrawCube()
             {
-
-                Gl.glPushMatrix();
-
-//`             Gl.glTranslatef(.75f, .75f, .75f);
-                Gl.glTranslatef(0,0,0);
-                Gl.glRotated(RotationAngleX, 1, 0, 0);
-                Gl.glRotated(RotationAngleY, 0, 1, 0);
-                Gl.glRotated(RotationAngleZ, 0, 0, 1);
-                Gl.glTranslatef(Vertex[1], Vertex[2], Vertex[3]);
-             //   Gl.glTranslatef(Vertex[1] - .7f, Vertex[2] - .7f, Vertex[3] - .7f);
-               
                 WriteCube();
                 WriteSoidCub();
-
-                Gl.glPopMatrix();
-
-
             }
         }
         public class CameraClass
@@ -239,32 +246,33 @@ namespace Tao_OpenGl_inicialised11
             public int MilleSecondsTime { get; set; }
 
         }
+
+        string NameDataFolder ="Data";
+        string NameRecordFolder ="Record";
+        string NameRecFile = "Records.Xml";
+        string PatchExeFile = Directory.GetCurrentDirectory();
+        string NameSettingFolder = "Setting";
+        string NameSettigFile = "Setting.Xml";
+
         float DeltaAngleForAllCube = 45; // угол поворота кубика (сейчас не используется ) 
         float DeltaAngleForCubeRotation = 90; // угол поворота раней кубика 
-
         float SelectAlphaColor = 0.6f; //Алтфа цвет выделелния 
         float NormalAlphaColor = 1.0f; // альфа нормального цвета 
-
         bool StartGame = false; // начата ли игра 
         bool PauseGame = false;  //  стоил ти игра на пайзе 
-
+        bool EndGame = false; // если кубик собран
         double TempX;
         double TempY;
         double OldMousePosX;
         double OldMousePosY;
-
         int MouseStartPositionX = 0;
         int MouseStartPositionY = 0;
-
         double MouseDeltaX = 0;
         double MouseDeltaY = 0;
-
         int SizeCube = 10; // началный размер куба
-
         Color ColorWorld; //Цвет мира и интерфейса
-
         public ClassCube[, ,] Cube = new ClassCube[3, 3, 3];
-
+        public RecType[] Records = new RecType[10];
         Time TimeForRecords = new Time();
         struct SSelectCube
         {
@@ -274,12 +282,12 @@ namespace Tao_OpenGl_inicialised11
         };
         SSelectCube SelectedCube;
         int[][] VariationOFSelectedCybeMidle = { // хранилище возможных вборов середин для их переворотов * не используется 
-            new int[] {1,1,0}, //front
-            new int[] {1,2,1}, //top 
-            new int[] {2,1,1}, //right
-            new int[] {0,1,1}, //left
-            new int[] {1,0,1}, //down
-            new int[] {1,1,2}  //bot
+            new int[] {2,2,1}, //front
+            new int[] {2,3,1}, //top 
+            new int[] {3,2,2}, //right
+            new int[] {1,2,2}, //left
+            new int[] {2,1,2}, //down
+            new int[] {2,2,3}  //bot
     };
 
         float[][] COlorHande =   { // укаатель цветов
@@ -292,27 +300,25 @@ namespace Tao_OpenGl_inicialised11
             new float [] {0,0,0}  , //черный 6
           };
 
-        ClassCube[, ,] DynamicCubeModel;
         public Form1() // первичная инициализация 
         {
 
             InitializeComponent();
-            AnT.InitializeContexts();
+            OpenGlControl.InitializeContexts();
 
         }
-
         private void Form1_Load(object sender, EventArgs e) // инициальзация 
         {
             Glut.glutInit();
             Glut.glutInitDisplayMode(Glut.GLUT_RGB | Glut.GLUT_DOUBLE | Glut.GLUT_DEPTH);
 
-            Gl.glClearColor(0,0,1 ,1);
+            Gl.glClearColor(0, 0, 1, 1);
 
-            Gl.glViewport(5, 5, AnT.Width, AnT.Height);
+            Gl.glViewport(5, 5, OpenGlControl.Width, OpenGlControl.Height);
 
             Gl.glMatrixMode(Gl.GL_PROJECTION);
             Gl.glLoadIdentity();
-            Glu.gluPerspective(45, (float)AnT.Width / (float)AnT.Height, 0.1, 200);
+            Glu.gluPerspective(45, (float)OpenGlControl.Width / (float)OpenGlControl.Height, 0.1, 200);
             Gl.glMatrixMode(Gl.GL_MODELVIEW);
             Gl.glLoadIdentity();
 
@@ -325,34 +331,42 @@ namespace Tao_OpenGl_inicialised11
             //Gl.glEnable(Gl.GL_LIGHTING);
             // Gl.glEnable(Gl.GL_LIGHT1);
 
-            FirstSettingUp();
-            SecondSettingUp();
+
+
+            if (!Directory.Exists(PatchExeFile + "//" + NameDataFolder + "//" + NameSettingFolder))
+            {
+                Directory.CreateDirectory(PatchExeFile + "//" + NameDataFolder + "//" + NameSettingFolder);
+            }
+
+            if (!Directory.Exists(PatchExeFile + "//" +  NameDataFolder + "//" + NameRecordFolder))
+            {
+                Directory.CreateDirectory(PatchExeFile + "//" + NameDataFolder + "//" + NameRecordFolder);
+            }
+
+             FirstSettingUp();
+             SecondSettingUp();
+           
 
         }
-
         private void FirstSettingUp()
-        {  // Time TimeForRecords =  new Time ();
+        {
             CameraClass Camera = new CameraClass(0, 0);
-
             int SelectIntName = 1;
             for (int Z = 0; Z < 3; Z++)
                 for (int X = 0; X < 3; X++)
                     for (int Y = 0; Y < 3; Y++)
                     {
                         Cube[X, Y, Z] = new ClassCube(SelectIntName, 0, 0, 0, NormalAlphaColor);
-                        //  DynamicCubeModel[X, Y, Z] = Cube[X, Y, Z];
                         SelectIntName += 1;
                     }
-            //DynamicCubeModel = Cube;
             SelectedCube.X = 2;
             SelectedCube.Y = 2;
             SelectedCube.Z = 1;
-            Cube[SelectedCube.X-1, SelectedCube.Y-1, SelectedCube.Z-1].AlphaColor = SelectAlphaColor;
-            Gl.glClearColor(0,0.5f,1,1);
-            PanelMenu.Left = AnT.Width + 10;
-
+            Cube[SelectedCube.X - 1, SelectedCube.Y - 1, SelectedCube.Z - 1].AlphaColor = SelectAlphaColor;
+            Gl.glClearColor(0, 0.5f, 1, 1);
+            PanelMenu.Left = OpenGlControl.Width + 10;
+            LoadRecordFileXml();
         }// первичная настройка параметров 
-
         public void SecondSettingUp()
         {
             Cube[0, 0, 0].SetObjectCube(-1, -1, -1, COlorHande[2], COlorHande[6], COlorHande[0], COlorHande[6], COlorHande[3], COlorHande[6], Cube[0, 0, 0].AlphaColor);
@@ -366,7 +380,7 @@ namespace Tao_OpenGl_inicialised11
             Cube[2, 0, 0].SetObjectCube(1, -1, -1, COlorHande[2], COlorHande[5], COlorHande[6], COlorHande[6], COlorHande[3], COlorHande[6], Cube[2, 0, 0].AlphaColor);
             Cube[2, 1, 0].SetObjectCube(1, 0, -1, COlorHande[2], COlorHande[5], COlorHande[6], COlorHande[6], COlorHande[6], COlorHande[6], Cube[2, 1, 0].AlphaColor);
             Cube[2, 2, 0].SetObjectCube(1, 1, -1, COlorHande[2], COlorHande[5], COlorHande[6], COlorHande[4], COlorHande[6], COlorHande[6], Cube[2, 2, 0].AlphaColor);
-//
+            //
 
             Cube[0, 0, 1].SetObjectCube(-1, -1, 0, COlorHande[6], COlorHande[6], COlorHande[0], COlorHande[6], COlorHande[3], COlorHande[6], Cube[0, 0, 1].AlphaColor);
             Cube[0, 1, 1].SetObjectCube(-1, 0, 0, COlorHande[6], COlorHande[6], COlorHande[0], COlorHande[6], COlorHande[6], COlorHande[6], Cube[0, 1, 1].AlphaColor);
@@ -396,20 +410,22 @@ namespace Tao_OpenGl_inicialised11
 
 
         }
-
         public void WriteCubeRub()
         {
-
             for (int Z = 0; Z < 3; Z++)
                 for (int X = 0; X < 3; X++)
                     for (int Y = 0; Y < 3; Y++)
-                    {  
- 
-                       Cube[X, Y, Z].DrawCube();
-                    
+                    {
+                        Gl.glPushMatrix();
+                        Gl.glTranslatef(X - 1, Y - 1, Z - 1);
+                        Gl.glRotated(Cube[X, Y, Z].RotationAngleX, 1, 0, 0);
+                        Gl.glRotated(Cube[X, Y, Z].RotationAngleY, 0, 1, 0);
+                        Gl.glRotated(Cube[X, Y, Z].RotationAngleZ, 0, 0, 1);
+
+                        Cube[X, Y, Z].DrawCube();
+                        Gl.glPopMatrix();
                     }
         } // рисование кубика-рубика
-
         private void button1_Click(object sender, EventArgs e) // основная работа 
         {
             Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
@@ -422,23 +438,17 @@ namespace Tao_OpenGl_inicialised11
             Gl.glRotated(MouseDeltaX, 0, -1, 0);
             Gl.glRotated(MouseDeltaY, 1, 0, 0);
             Gl.glTranslated(-0.5f, -0.5f, -0.5f);
-            
-
-            // Gl.glRotated(Math.Sqrt(MouseDeltaX*MouseDeltaX+MouseDeltaY*MouseDeltaY), 0, 0, 1);
 
             WriteCubeRub();
 
             Gl.glPopMatrix();
             Gl.glFlush();
-
-            AnT.Invalidate();
-
+            OpenGlControl.Invalidate();
         }
-
         private void AnimationOpenMenu(object sender, EventArgs e)
         {
 
-            if (PanelMenu.Left >= AnT.Width - PanelMenu.Width)
+            if (PanelMenu.Left >= OpenGlControl.Width - PanelMenu.Width)
             {
                 PanelMenu.Left -= 10;
             }
@@ -451,10 +461,9 @@ namespace Tao_OpenGl_inicialised11
 
 
         } // анимация для открывания "меню "
-
         private void AnimationCloseMenu(object sender, EventArgs e)
         {
-            if (PanelMenu.Location.X <= AnT.Width + PanelMenu.Width + 10)
+            if (PanelMenu.Location.X <= OpenGlControl.Width + PanelMenu.Width + 10)
             {
 
                 PanelMenu.Left += 10;
@@ -467,23 +476,18 @@ namespace Tao_OpenGl_inicialised11
 
             }
         }// анимация для закрывания "меню ;
-
         private void EventHandler(object sender, EventArgs e)
         {
             // throw new NotImplementedException();
         } // заглушка 
-
         private void timer1_Tick(object sender, EventArgs e)
         {
-
             button1_Click(sender, e);
         } // вызов перерисовки 
-
         private void button2_Click_1(object sender, EventArgs e)
         {
             RenderTimer.Enabled = !(RenderTimer.Enabled);
         }
-
         private void label1_MouseEnter(object sender, EventArgs e)
         {
             RenderAnimation.Tick += AnimationOpenMenu;
@@ -498,31 +502,25 @@ namespace Tao_OpenGl_inicialised11
             PanelMenu.Focus();
 
         }
-
         private void panel1_Leave(object sender, EventArgs e)
         {
             RenderAnimation.Tick += AnimationCloseMenu;
             MenuLabel.Visible = true;
             RenderAnimation.Enabled = true;
+            RecordsPanel.Visible = false;
             if (PauseGame == true)
             {
                 RecTimer.Enabled = true;
                 PauseLabel.Visible = false;
                 PauseGame = false;
+                
             }
 
         }
-
         private void Exitbutton_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
-
-        private void AnT_MouseCaptureChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void AnT_MouseMove(object sender, MouseEventArgs e)
         {
 
@@ -556,7 +554,6 @@ namespace Tao_OpenGl_inicialised11
 
             }
         }
-
         private void AnT_MouseDown(object sender, MouseEventArgs e)
         {
 
@@ -565,11 +562,7 @@ namespace Tao_OpenGl_inicialised11
 
             MouseStartPositionX = e.Location.X;
             MouseStartPositionY = e.Location.Y;
-
-
-
         }
-
         private void RecTimer_Tick(object sender, EventArgs e)// пофиксить синхрониацию 
         {
             TimeForRecords.MilleSecondsTime += 1;
@@ -585,7 +578,6 @@ namespace Tao_OpenGl_inicialised11
             }
             TimeLabel.Text = Convert.ToString(TimeForRecords.MinuteTime + ":" + TimeForRecords.SecondsTime + ":" + TimeForRecords.MilleSecondsTime);
         }
-
         private void NewGameButton_Click(object sender, EventArgs e)
         {
             if (StartGame == true)
@@ -618,48 +610,21 @@ namespace Tao_OpenGl_inicialised11
 
                         };
                 };
-            }
+            } 
 
             else
             {
                 // RenderAnimation.Enabled = true;
                 // RenderAnimation.Tick += AnimationCloseMenu;
 
-
+                ShaflCube();
                 TimeLabel.Visible = true;
                 RecTimer.Enabled = true;
                 StartGame = true;
             }
         }
-
-        private int[] ConvertIntNameToMass(int IntName)
-        {
-
-            int[] ResultMass = new int[3];
-
-            for (int Z = 0; Z < 3; Z++)
-                for (int X = 0; X < 3; X++)
-                    for (int Y = 0; Y < 3; Y++)
-                    {
-                        if (Cube[X, Y, Z].IntName == IntName)
-                        {
-                            ResultMass[0] = X;
-                            ResultMass[1] = Y;
-                            ResultMass[2] = Z;
-                            break;
-                        }
-
-
-
-
-
-                    }
-            return ResultMass;
-        }//конвертация из IntNameCube в Его номера в масииве
-
         private void AnT_KeyDown(object sender, KeyEventArgs e)
         {
-
             switch (e.KeyCode)
             {
                 case Keys.W:
@@ -816,7 +781,7 @@ namespace Tao_OpenGl_inicialised11
                 case Keys.A:
                     {
                         if (SelectedCube.X == 1)
-                        {
+                        { 
                             SelectedCube.X += 1;
                             SelectedCube.Z = 1;
                         }
@@ -863,130 +828,27 @@ namespace Tao_OpenGl_inicialised11
                     }
                 case Keys.Space: // переворот 
                     {
-                       
-
-                        label3.Text = "Нажат пробел на " + Convert.ToString(SelectedCube.X) + ':' + Convert.ToString(SelectedCube.Y) + ':' + Convert.ToString(SelectedCube.Z);
-
-                        if ((SelectedCube.X == 2) & (SelectedCube.Y == 2) & (SelectedCube.Z == 1))//1,1,0
-                        {
-                            SwapArrCube(ref Cube[0, 0, 0], ref Cube[0, 2, 0]);
-                            SwapArrCube(ref Cube[0, 0, 0], ref Cube[2, 2, 0]);
-                            SwapArrCube(ref Cube[0, 0, 0], ref Cube[2, 0, 0]);
-
-                            SwapArrCube(ref Cube[0, 1, 0], ref Cube[1, 2, 0]);
-                            SwapArrCube(ref Cube[0, 1, 0], ref Cube[2, 1, 0]);
-                            SwapArrCube(ref Cube[0, 1, 0], ref Cube[2, 0, 0]);
-
-                            //Cube[0, 0, 0].RotationAngleZ += 90;
-                            //Cube[1, 0, 0].RotationAngleZ += 90;
-                            //Cube[2, 0, 0].RotationAngleZ += 90;
-
-                            //Cube[0, 1, 0].RotationAngleZ += 90;
-                            //Cube[1, 1, 0].RotationAngleZ += 90;
-                            //Cube[2, 1, 0].RotationAngleZ += 90;
-
-                            //Cube[0, 2, 0].RotationAngleZ += 90;
-                            //Cube[1, 2, 0].RotationAngleZ += 90;
-                            //Cube[2, 2, 0].RotationAngleZ += 90;
-
-
-                            
-                            
-                        }
-                        else
-                        {
-                            if ((SelectedCube.X == 2) & (SelectedCube.Y == 3) & (SelectedCube.Z == 2))//1,2,1
-                            {
-
-                                SwapArrCube(ref Cube[0, 2, 0], ref Cube[0, 2, 2]);
-                                SwapArrCube(ref Cube[0, 2, 0], ref Cube[2, 2, 2]);
-                                SwapArrCube(ref Cube[0, 2, 0], ref Cube[2, 2, 1]);
-
-                                SwapArrCube(ref Cube[0, 2, 1], ref Cube[1, 2, 2]);
-                                SwapArrCube(ref Cube[0, 2, 1], ref Cube[2, 2, 1]);
-                                SwapArrCube(ref Cube[0, 2, 1], ref Cube[2, 2, 0]);
-
-                                //Cube[0, 2, 0].RotationAngleY += 90;
-                                //Cube[1, 2, 0].RotationAngleY += 90;
-                                //Cube[2, 2, 0].RotationAngleY += 90;
-
-                                //Cube[0, 2, 1].RotationAngleY += 90;
-                                //Cube[1, 2, 1].RotationAngleY += 90;
-                                //Cube[2, 2, 1].RotationAngleY += 90;
-
-                                //Cube[0, 2, 2].RotationAngleY += 90;
-                                //Cube[1, 2, 2].RotationAngleY += 90;
-                                //Cube[2, 2, 2].RotationAngleY += 90;
-
-
-                            }
-                            else
-                            {
-                                if ((SelectedCube.X == 3) & (SelectedCube.Y == 2) & (SelectedCube.Z == 2))//2,1,1
+                        FlipSide(SelectedCube.X, SelectedCube.Y, SelectedCube.Z);
+                        int SelectIntName = 1;
+                        for (int Z = 0; Z < 3; Z++)
+                            for (int X = 0; X < 3; X++)
+                                for (int Y = 0; Y < 3; Y++)
                                 {
-
-                                    SwapArrCube(ref Cube[2, 0, 0], ref Cube[2, 2, 0]);
-                                    SwapArrCube(ref Cube[2, 0, 0], ref Cube[2, 2, 2]);
-                                    SwapArrCube(ref Cube[2, 0, 0], ref Cube[2, 0, 2]);
-
-                                    SwapArrCube(ref Cube[2, 1, 0], ref Cube[2, 2, 1]);
-                                    SwapArrCube(ref Cube[2, 1, 0], ref Cube[2, 1, 3]);
-                                    SwapArrCube(ref Cube[2, 1, 0], ref Cube[2, 0, 1]);
-
-
-
-                                }
-                                else
-                                {
-                                    if ((SelectedCube.X == 1) & (SelectedCube.Y == 2) & (SelectedCube.Z == 2))//0,1,1
+                                    if (Cube[X, Y, Z].IntName == SelectIntName)
                                     {
-
-
-                                        SwapArrCube(ref Cube[0, 0, 0], ref Cube[0, 2, 0]);
-                                        SwapArrCube(ref Cube[0, 0, 0], ref Cube[0, 2, 2]);
-                                        SwapArrCube(ref Cube[0, 0, 0], ref Cube[0, 0, 2]);
-
-                                        SwapArrCube(ref Cube[0, 1, 0], ref Cube[0, 2, 1]);
-                                        SwapArrCube(ref Cube[0, 1, 0], ref Cube[0, 1, 2]);
-                                        SwapArrCube(ref Cube[0, 1, 0], ref Cube[0, 0, 1]);
-
+                                        SelectIntName += 1;
+                                        EndGame = true;
                                     }
                                     else
                                     {
-                                        if ((SelectedCube.X == 2) & (SelectedCube.Y == 1) & (SelectedCube.Z == 2))//1,0,1
-                                        {
-
-                                            SwapArrCube(ref Cube[0, 0, 0], ref Cube[2, 0, 0]);
-                                            SwapArrCube(ref Cube[0, 0, 0], ref Cube[2, 0, 2]);
-                                            SwapArrCube(ref Cube[0, 0, 0], ref Cube[0, 0, 2]);
-
-                                            SwapArrCube(ref Cube[1, 0, 0], ref Cube[2, 0, 1]);
-                                            SwapArrCube(ref Cube[1, 0, 0], ref Cube[1, 0, 2]);
-                                            SwapArrCube(ref Cube[1, 0, 0], ref Cube[0, 0, 1]);
-
-                                        }
-                                        else
-                                        {
-                                            if ((SelectedCube.X == 2) & (SelectedCube.Y == 2) & (SelectedCube.Z == 3))//1,1,2
-                                            {
-
-                                                SwapArrCube(ref Cube[0, 2, 2], ref Cube[2, 2, 2]);
-                                                SwapArrCube(ref Cube[0, 2, 2], ref Cube[2, 0, 2]);
-                                                SwapArrCube(ref Cube[0, 2, 2], ref Cube[0, 0, 2]);
-
-                                                SwapArrCube(ref Cube[1, 2, 0], ref Cube[2, 2, 1]);
-                                                SwapArrCube(ref Cube[1, 2, 0], ref Cube[1, 2, 2]);
-                                                SwapArrCube(ref Cube[1, 2, 0], ref Cube[0, 2, 1]);
-
-                                            }
-                                        }
+                                        EndGame = false;
+                                        break;
+                                    }
+                                    if ((EndGame == true) && (StartGame == true))
+                                    {
+                                        GameIsOver();
                                     }
                                 }
-                            }
-                        }
-
-
-
                         break;
                     }
             }
@@ -996,30 +858,156 @@ namespace Tao_OpenGl_inicialised11
             Cube[0, 1, 1].AlphaColor = NormalAlphaColor;
             Cube[1, 0, 1].AlphaColor = NormalAlphaColor;
             Cube[1, 1, 2].AlphaColor = NormalAlphaColor;
-            Cube[SelectedCube.X - 1, SelectedCube.Y - 1, SelectedCube.Z - 1].AlphaColor = .6f;
+            Cube[SelectedCube.X - 1, SelectedCube.Y - 1, SelectedCube.Z - 1].AlphaColor = SelectAlphaColor;
+        }
+        private void FlipSide(int X, int Y, int Z)
+        {
+            if ((X == 2) & (Y == 2) & (Z == 1))//1,1,0
+            {
+                SwapArrCube(ref Cube[0, 0, 0], ref Cube[0, 2, 0]);
+                SwapArrCube(ref Cube[0, 0, 0], ref Cube[2, 2, 0]);
+                SwapArrCube(ref Cube[0, 0, 0], ref Cube[2, 0, 0]);
 
+                SwapArrCube(ref Cube[0, 1, 0], ref Cube[1, 2, 0]);
+                SwapArrCube(ref Cube[0, 1, 0], ref Cube[2, 1, 0]);
+                SwapArrCube(ref Cube[0, 1, 0], ref Cube[1, 0, 0]);
+
+                //Cube[0, 0, 0].RotationAngleZ += 90;
+                //Cube[1, 0, 0].RotationAngleZ += 90;
+                //Cube[2, 0, 0].RotationAngleZ += 90;
+
+                //Cube[0, 1, 0].RotationAngleZ += 90;
+                //Cube[1, 1, 0].RotationAngleZ += 90;
+                //Cube[2, 1, 0].RotationAngleZ += 90;
+
+                //Cube[0, 2, 0].RotationAngleZ += 90;
+                //Cube[1, 2, 0].RotationAngleZ += 90;
+                //Cube[2, 2, 0].RotationAngleZ += 90;
+            }
+            else
+            {
+                if ((X == 2) & (Y == 3) & (Z == 2))//1,2,1
+                {
+                    SwapArrCube(ref Cube[0, 2, 0], ref Cube[0, 2, 2]);
+                    SwapArrCube(ref Cube[0, 2, 0], ref Cube[2, 2, 2]);
+                    SwapArrCube(ref Cube[0, 2, 0], ref Cube[2, 2, 0]);
+
+                    SwapArrCube(ref Cube[0, 2, 1], ref Cube[1, 2, 2]);
+                    SwapArrCube(ref Cube[0, 2, 1], ref Cube[2, 2, 1]);
+                    SwapArrCube(ref Cube[0, 2, 1], ref Cube[1, 2, 0]);
+
+                    //Cube[0, 2, 0].RotationAngleY += 90;
+                    //Cube[1, 2, 0].RotationAngleY += 90;
+                    //Cube[2, 2, 0].RotationAngleY += 90;
+
+                    //Cube[0, 2, 1].RotationAngleY += 90;
+                    //Cube[1, 2, 1].RotationAngleY += 90;
+                    //Cube[2, 2, 1].RotationAngleY += 90;
+
+                    //Cube[0, 2, 2].RotationAngleY += 90;
+                    //Cube[1, 2, 2].RotationAngleY += 90;
+                    //Cube[2, 2, 2].RotationAngleY += 90;
+
+
+                }
+                else
+                {
+                    if ((X == 3) & (Y == 2) & (Z == 2))//2,1,1
+                    {
+                        SwapArrCube(ref Cube[2, 0, 0], ref Cube[2, 2, 0]);
+                        SwapArrCube(ref Cube[2, 0, 0], ref Cube[2, 2, 2]);
+                        SwapArrCube(ref Cube[2, 0, 0], ref Cube[2, 0, 2]);
+
+                        SwapArrCube(ref Cube[2, 1, 0], ref Cube[2, 2, 1]);
+                        SwapArrCube(ref Cube[2, 1, 0], ref Cube[2, 1, 2]);
+                        SwapArrCube(ref Cube[2, 1, 0], ref Cube[2, 0, 1]);
+                    }
+                    else
+                    {
+                        if ((X == 1) & (Y == 2) & (Z == 2))//0,1,1
+                        {
+                            SwapArrCube(ref Cube[0, 0, 0], ref Cube[0, 2, 0]);
+                            SwapArrCube(ref Cube[0, 0, 0], ref Cube[0, 2, 2]);
+                            SwapArrCube(ref Cube[0, 0, 0], ref Cube[0, 0, 2]);
+
+                            SwapArrCube(ref Cube[0, 1, 0], ref Cube[0, 2, 1]);
+                            SwapArrCube(ref Cube[0, 1, 0], ref Cube[0, 1, 2]);
+                            SwapArrCube(ref Cube[0, 1, 0], ref Cube[0, 0, 1]);
+                        }
+                        else
+                        {
+                            if ((X == 2) & (Y == 1) & (Z == 2))//1,0,1
+                            {
+                                SwapArrCube(ref Cube[0, 0, 0], ref Cube[2, 0, 0]);
+                                SwapArrCube(ref Cube[0, 0, 0], ref Cube[2, 0, 2]);
+                                SwapArrCube(ref Cube[0, 0, 0], ref Cube[0, 0, 2]);
+
+                                SwapArrCube(ref Cube[1, 0, 0], ref Cube[2, 0, 1]);
+                                SwapArrCube(ref Cube[1, 0, 0], ref Cube[1, 0, 2]);
+                                SwapArrCube(ref Cube[1, 0, 0], ref Cube[0, 0, 1]);
+                            }
+                            else
+                            {
+                                if ((X == 2) & (Y == 2) & (Z == 3))//1,1,2
+                                {
+                                    SwapArrCube(ref Cube[0, 0, 2], ref Cube[0, 2, 2]);
+                                    SwapArrCube(ref Cube[0, 0, 2], ref Cube[2, 2, 2]);
+                                    SwapArrCube(ref Cube[0, 0, 2], ref Cube[2, 0, 2]);
+
+                                    SwapArrCube(ref Cube[0, 1, 2], ref Cube[1, 2, 2]);
+                                    SwapArrCube(ref Cube[0, 1, 2], ref Cube[2, 1, 2]);
+                                    SwapArrCube(ref Cube[0, 1, 2], ref Cube[1, 0, 2]);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
 
         }
+        private void GameIsOver()
+        {
+            RecTimer.Enabled = false;
+            MessageBox.Show("Поздравляю, Вы собрали кубик за - " + TimeForRecords.MinuteTime + "Мин " + TimeForRecords.SecondsTime + "Сек " + TimeForRecords.MilleSecondsTime + "МСек", "Внимание!");
+            StartGame = false;
+            EndGame = false;
 
-        private void SwapArrCube( ref ClassCube First, ref ClassCube Second)
+            for (int i = 0; i <= 9; i++)
+            {
+                if (Records[i].RecMin >=TimeForRecords.MinuteTime)
+                {
+                    if (Records[i].RecSec >=TimeForRecords.SecondsTime)
+                    {
+                        if(Records[i].RecMilleSec>=TimeForRecords.MilleSecondsTime)
+                        {
+                            listBox1.SelectedIndex = i;
+                            listBox1.Enabled = false;
+                            RecordsPanel.Visible = true;
+                            RecordSavePanel.Visible = true;
+                            RecordsPanel.Focus(); 
+                            break;
+                        }
+                    }
+               }
+            }
+        }     
+        private void SwapArrCube(ref ClassCube First, ref ClassCube Second)
         {
             ClassCube Temp = new ClassCube();
             Temp = First;
             First = Second;
             Second = Temp;
+      
         }
-
         private void button3_Click(object sender, EventArgs e)
         {
             SettingsPanel.Visible = true;
             SettingsPanel.Focus();
         }
-
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
             SizeCube = trackBar1.Value;
         }
-
         private void label3_Click(object sender, EventArgs e)
         {
             colorDialog1.ShowDialog();
@@ -1039,16 +1027,69 @@ namespace Tao_OpenGl_inicialised11
 
 
         }
-
         private void SettingsPanel_Leave(object sender, EventArgs e)
         {
             SettingsPanel.Visible = false;
         }
+        private void RecordButton_Click(object sender, EventArgs e)
+        {
+            RecordsPanel.Visible = true;
+            PauseGame = true;
+            RecTimer.Enabled = false;
+            RecordsPanel.Focus();
+            
+        }
+        private void SaveRecordFileXml() // Сохранение Рекордов в XML c MSDN
+        {
+            System.Xml.Serialization.XmlSerializer writer = new System.Xml.Serialization.XmlSerializer(
+            Records.GetType());
 
+            System.IO.StreamWriter file = new System.IO.StreamWriter(PatchExeFile + "//" + NameDataFolder + "//" + NameRecordFolder + "//" + NameRecFile);
+                writer.Serialize(file, Records);
+                file.Close();
+        }
+        private void LoadRecordFileXml() //запись Рекордов в XML c MSDN
+        {
+            System.Xml.Serialization.XmlSerializer reader = new System.Xml.Serialization.XmlSerializer(Records.GetType());
+            System.IO.StreamReader file = new System.IO.StreamReader(PatchExeFile + "//" + NameDataFolder + "//" + NameRecordFolder +"//" + NameRecFile);
+            Records = (RecType[])reader.Deserialize(file);
+            RewrireRecordsTables();
+        }
+        private void RewrireRecordsTables()
+        {
+            listBox1.Items.Clear();
+            for (int i = 0; i <= 9; i++)
+            {   
+                    listBox1.Items.Add(Records[i].Name + '(' + Records[i].RecMin + ':' + Records[i].RecSec + ':' + Records[i].RecMilleSec + ')');   
+            }
 
+        }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Records[listBox1.SelectedIndex] = new RecType(NewNameRecordText.Text,TimeForRecords);
+            RecordSavePanel.Visible = false;
+            listBox1.Enabled = true;
+            RewrireRecordsTables();
 
+         }
+        private void ShaflCube()
+        {
+            Random Randomiser = new Random();
+            int CountFlips =Randomiser.Next(15, 100) ;
+            int SideFlip;
+            for (int i = 1; i <= CountFlips; i++)
+            {
+               SideFlip = Randomiser.Next(0, 5);
+               int x = VariationOFSelectedCybeMidle[SideFlip][0];
+               int y = VariationOFSelectedCybeMidle[SideFlip][1];
+               int z = VariationOFSelectedCybeMidle[SideFlip][2];
+                FlipSide( VariationOFSelectedCybeMidle[SideFlip][0],VariationOFSelectedCybeMidle[SideFlip][1],VariationOFSelectedCybeMidle[SideFlip][2]);
+            }
+        }
     }
+
 }
+
 
 
 

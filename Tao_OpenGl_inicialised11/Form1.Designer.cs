@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.AnT = new Tao.Platform.Windows.SimpleOpenGlControl();
             this.button1 = new System.Windows.Forms.Button();
             this.RenderTimer = new System.Windows.Forms.Timer(this.components);
             this.PanelMenu = new System.Windows.Forms.Panel();
@@ -49,30 +48,19 @@
             this.label2 = new System.Windows.Forms.Label();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.label3 = new System.Windows.Forms.Label();
+            this.RecordsPanel = new System.Windows.Forms.Panel();
+            this.RecordSavePanel = new System.Windows.Forms.Panel();
+            this.SaveNewRecordButton = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.NewNameRecordText = new System.Windows.Forms.TextBox();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.OpenGlControl = new Tao.Platform.Windows.SimpleOpenGlControl();
             this.PanelMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SettingsPanel.SuspendLayout();
+            this.RecordsPanel.SuspendLayout();
+            this.RecordSavePanel.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // AnT
-            // 
-            this.AnT.AccumBits = ((byte)(0));
-            this.AnT.AutoCheckErrors = false;
-            this.AnT.AutoFinish = false;
-            this.AnT.AutoMakeCurrent = true;
-            this.AnT.AutoSwapBuffers = true;
-            this.AnT.BackColor = System.Drawing.Color.Black;
-            this.AnT.ColorBits = ((byte)(32));
-            this.AnT.DepthBits = ((byte)(16));
-            this.AnT.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.AnT.Location = new System.Drawing.Point(0, 0);
-            this.AnT.Name = "AnT";
-            this.AnT.Size = new System.Drawing.Size(876, 500);
-            this.AnT.StencilBits = ((byte)(0));
-            this.AnT.TabIndex = 0;
-            this.AnT.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AnT_KeyDown);
-            this.AnT.MouseDown += new System.Windows.Forms.MouseEventHandler(this.AnT_MouseDown);
-            this.AnT.MouseMove += new System.Windows.Forms.MouseEventHandler(this.AnT_MouseMove);
             // 
             // button1
             // 
@@ -124,6 +112,7 @@
             this.RecordButton.TabIndex = 3;
             this.RecordButton.Text = "Рекорды";
             this.RecordButton.UseVisualStyleBackColor = false;
+            this.RecordButton.Click += new System.EventHandler(this.RecordButton_Click);
             // 
             // ExitButton
             // 
@@ -268,6 +257,7 @@
             this.SettingsPanel.Controls.Add(this.trackBar1);
             this.SettingsPanel.Controls.Add(this.label1);
             this.SettingsPanel.Cursor = System.Windows.Forms.Cursors.PanNW;
+            this.SettingsPanel.Font = new System.Drawing.Font("Bookman Old Style", 40F, System.Drawing.FontStyle.Italic);
             this.SettingsPanel.Location = new System.Drawing.Point(136, 0);
             this.SettingsPanel.Name = "SettingsPanel";
             this.SettingsPanel.Size = new System.Drawing.Size(554, 256);
@@ -311,12 +301,98 @@
             this.label3.TabIndex = 10;
             this.label3.Text = "label";
             // 
+            // RecordsPanel
+            // 
+            this.RecordsPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.RecordsPanel.Controls.Add(this.RecordSavePanel);
+            this.RecordsPanel.Controls.Add(this.listBox1);
+            this.RecordsPanel.Cursor = System.Windows.Forms.Cursors.PanNW;
+            this.RecordsPanel.Font = new System.Drawing.Font("Bookman Old Style", 25F, System.Drawing.FontStyle.Italic);
+            this.RecordsPanel.Location = new System.Drawing.Point(0, 0);
+            this.RecordsPanel.Name = "RecordsPanel";
+            this.RecordsPanel.Size = new System.Drawing.Size(351, 381);
+            this.RecordsPanel.TabIndex = 11;
+            this.RecordsPanel.Visible = false;
+            // 
+            // RecordSavePanel
+            // 
+            this.RecordSavePanel.Controls.Add(this.SaveNewRecordButton);
+            this.RecordSavePanel.Controls.Add(this.label4);
+            this.RecordSavePanel.Controls.Add(this.NewNameRecordText);
+            this.RecordSavePanel.Location = new System.Drawing.Point(25, 275);
+            this.RecordSavePanel.Name = "RecordSavePanel";
+            this.RecordSavePanel.Size = new System.Drawing.Size(297, 106);
+            this.RecordSavePanel.TabIndex = 13;
+            this.RecordSavePanel.Visible = false;
+            // 
+            // SaveNewRecordButton
+            // 
+            this.SaveNewRecordButton.Location = new System.Drawing.Point(251, 7);
+            this.SaveNewRecordButton.Name = "SaveNewRecordButton";
+            this.SaveNewRecordButton.Size = new System.Drawing.Size(34, 93);
+            this.SaveNewRecordButton.TabIndex = 16;
+            this.SaveNewRecordButton.Text = ">";
+            this.SaveNewRecordButton.UseVisualStyleBackColor = true;
+            this.SaveNewRecordButton.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(3, 12);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(242, 38);
+            this.label4.TabIndex = 15;
+            this.label4.Text = "Введите имя";
+            // 
+            // NewNameRecordText
+            // 
+            this.NewNameRecordText.Location = new System.Drawing.Point(10, 53);
+            this.NewNameRecordText.MaxLength = 15;
+            this.NewNameRecordText.Name = "NewNameRecordText";
+            this.NewNameRecordText.Size = new System.Drawing.Size(225, 47);
+            this.NewNameRecordText.TabIndex = 14;
+            // 
+            // listBox1
+            // 
+            this.listBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.listBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.listBox1.Font = new System.Drawing.Font("Bookman Old Style", 25F, System.Drawing.FontStyle.Italic);
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 37;
+            this.listBox1.Location = new System.Drawing.Point(3, 6);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(345, 370);
+            this.listBox1.TabIndex = 0;
+            // 
+            // OpenGlControl
+            // 
+            this.OpenGlControl.AccumBits = ((byte)(0));
+            this.OpenGlControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.OpenGlControl.AutoCheckErrors = false;
+            this.OpenGlControl.AutoFinish = false;
+            this.OpenGlControl.AutoMakeCurrent = true;
+            this.OpenGlControl.AutoSwapBuffers = true;
+            this.OpenGlControl.BackColor = System.Drawing.Color.Black;
+            this.OpenGlControl.ColorBits = ((byte)(32));
+            this.OpenGlControl.DepthBits = ((byte)(16));
+            this.OpenGlControl.Location = new System.Drawing.Point(0, -1);
+            this.OpenGlControl.Name = "OpenGlControl";
+            this.OpenGlControl.Size = new System.Drawing.Size(889, 459);
+            this.OpenGlControl.StencilBits = ((byte)(0));
+            this.OpenGlControl.TabIndex = 12;
+            this.OpenGlControl.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AnT_KeyDown);
+            this.OpenGlControl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.AnT_MouseDown);
+            this.OpenGlControl.MouseMove += new System.Windows.Forms.MouseEventHandler(this.AnT_MouseMove);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(876, 500);
+            this.Controls.Add(this.RecordsPanel);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.SettingsPanel);
             this.Controls.Add(this.PauseLabel);
@@ -324,7 +400,7 @@
             this.Controls.Add(this.MenuLabel);
             this.Controls.Add(this.PanelMenu);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.AnT);
+            this.Controls.Add(this.OpenGlControl);
             this.Name = "Form1";
             this.Text = "Кубик Рубик By NeoGara";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -332,6 +408,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.SettingsPanel.ResumeLayout(false);
             this.SettingsPanel.PerformLayout();
+            this.RecordsPanel.ResumeLayout(false);
+            this.RecordSavePanel.ResumeLayout(false);
+            this.RecordSavePanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -359,6 +438,13 @@
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.Label ColorLabel;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Panel RecordsPanel;
+        private Tao.Platform.Windows.SimpleOpenGlControl OpenGlControl;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Panel RecordSavePanel;
+        private System.Windows.Forms.Button SaveNewRecordButton;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox NewNameRecordText;
 
     }
 }
