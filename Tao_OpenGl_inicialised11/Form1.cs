@@ -1190,7 +1190,7 @@ namespace Tao_OpenGl_inicialised11
             }
             
             //afqk nen 
-            ChekLog();
+           
         }
 
         /// <summary>
@@ -1297,7 +1297,7 @@ namespace Tao_OpenGl_inicialised11
             RewrireRecordsTables();
         }
         /// <summary>
-        /// Rewrires the records tables.
+        /// Rewrites the records tables.
         /// </summary>
         public void RewrireRecordsTables()
         {

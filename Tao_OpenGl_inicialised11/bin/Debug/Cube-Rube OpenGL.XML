@@ -1,0 +1,338 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cube-Rube OpenGL</name>
+    </assembly>
+    <members>
+        <member name="T:Tao_OpenGl_inicialised11.Form1">
+            <exclude />
+        </member>
+        <member name="T:Tao_OpenGl_inicialised11.Form1.RecType">
+            <summary>
+            Class RecType  - Класс используется для работы с записанным временем 
+            </summary>
+        </member>
+        <member name="M:Tao_OpenGl_inicialised11.Form1.RecType.#ctor(System.String,Tao_OpenGl_inicialised11.Form1.Time)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Tao_OpenGl_inicialised11.Form1.RecType"/> class.
+            </summary>
+            <param name="_Name">Имя игрока</param>
+            <param name="_RecTime">Класс типа Time в котором содержится время  time.</param>
+        </member>
+        <member name="M:Tao_OpenGl_inicialised11.Form1.RecType.#ctor(System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Tao_OpenGl_inicialised11.Form1.RecType"/> class.
+            </summary>
+            <param name="_Name">Имя игрока </param>
+            <param name="_RecMin">Минуты</param>
+            <param name="_RecSec">Секунды</param>
+            <param name="_RecMilleSec">Милли секунды </param>
+        </member>
+        <member name="M:Tao_OpenGl_inicialised11.Form1.RecType.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Tao_OpenGl_inicialised11.Form1.RecType"/> class.
+            </summary>
+        </member>
+        <member name="F:Tao_OpenGl_inicialised11.Form1.RecType.Name">
+            <summary>
+            поля с именем 
+            </summary>
+        </member>
+        <member name="F:Tao_OpenGl_inicialised11.Form1.RecType.RecMin">
+            <summary>
+            поля с минутами 
+            </summary>
+        </member>
+        <member name="F:Tao_OpenGl_inicialised11.Form1.RecType.RecSec">
+            <summary>
+            поле с секундами 
+            </summary>
+        </member>
+        <member name="F:Tao_OpenGl_inicialised11.Form1.RecType.RecMilleSec">
+            <summary>
+            поле с милли секундами 
+            </summary>
+        </member>
+        <member name="T:Tao_OpenGl_inicialised11.Form1.ClassCube">
+            <summary>
+            Класс для описания кубика в общем кубе 
+            </summary>
+        </member>
+        <member name="P:Tao_OpenGl_inicialised11.Form1.ClassCube.IntName">
+            <summary>
+            Псевдо указатель элемент общего куба
+            </summary>
+            <value>The name of the int.</value>
+        </member>
+        <member name="P:Tao_OpenGl_inicialised11.Form1.ClassCube.RotationAngleX">
+            <summary>
+            Угол поворота по Х оси 
+            </summary>
+            <value>The rotation angle x.</value>
+        </member>
+        <member name="P:Tao_OpenGl_inicialised11.Form1.ClassCube.RotationAngleY">
+            <summary>
+            Угол поворота по Y оси  .
+            </summary>
+            <value>The rotation angle y.</value>
+        </member>
+        <member name="P:Tao_OpenGl_inicialised11.Form1.ClassCube.RotationAngleZ">
+            <summary>
+            Угол поворота по Z оси 
+            </summary>
+            <value>The rotation angle z.</value>
+        </member>
+        <member name="P:Tao_OpenGl_inicialised11.Form1.ClassCube.AlphaColor">
+            <summary>
+            Прозрачность куба
+            </summary>
+            <value>The color of the alpha.</value>
+        </member>
+        <member name="P:Tao_OpenGl_inicialised11.Form1.ClassCube.Vertex">
+            <summary>
+            массив Векторов для позиции 
+            </summary>
+            <value>The vertex.</value>
+        </member>
+        <member name="P:Tao_OpenGl_inicialised11.Form1.ClassCube.ColorCube">
+            <summary>
+            Массив цветов куба
+            </summary>
+            <value>The color cube.</value>
+        </member>
+        <member name="M:Tao_OpenGl_inicialised11.Form1.ClassCube.#ctor(System.Int32,System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Tao_OpenGl_inicialised11.Form1.ClassCube"/> class.
+            </summary>
+            <param name="_IntName">Псевдо имя(указатель) куба.</param>
+            <param name="AngleX">The angle x.</param>
+            <param name="AngleY">The angle y.</param>
+            <param name="AngleZ">The angle z.</param>
+            <param name="_AlphaColor">Color of the _ alpha.</param>
+        </member>
+        <member name="M:Tao_OpenGl_inicialised11.Form1.ClassCube.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Tao_OpenGl_inicialised11.Form1.ClassCube"/> class.
+            </summary>
+        </member>
+        <member name="M:Tao_OpenGl_inicialised11.Form1.ClassCube.SetRotation(System.Single,System.Single,System.Single)">
+            <summary>
+            Указывает угол поворота по 3 Осям
+            </summary>
+            <param name="AngleX">The angle x.</param>
+            <param name="AngleY">The angle y.</param>
+            <param name="AngleZ">The angle z.</param>
+        </member>
+        <member name="M:Tao_OpenGl_inicialised11.Form1.ClassCube.SetObjectCube(System.Single,System.Single,System.Single,System.Single[],System.Single[],System.Single[],System.Single[],System.Single[],System.Single[],System.Single)">
+            <summary>
+            Инициальизирование (задание параметров) куба 
+            </summary>
+            <param name="X">Вектор X .</param>
+            <param name="Y">Вектор Y.</param>
+            <param name="Z">Вектор Z.</param>
+            <param name="Color1">The color1.</param>
+            <param name="Color2">The color2.</param>
+            <param name="Color3">The color3.</param>
+            <param name="Color4">The color4.</param>
+            <param name="Color5">The color5.</param>
+            <param name="Color6">The color6.</param>
+            <param name="_AlphaColor">Прозрачность.</param>
+        </member>
+        <member name="M:Tao_OpenGl_inicialised11.Form1.ClassCube.WriteCube">
+            <summary>
+            Рисование куба
+            </summary>
+        </member>
+        <member name="M:Tao_OpenGl_inicialised11.Form1.ClassCube.WriteSoidCub">
+            <summary>
+            Рисование граней куба (Обводки)
+            </summary>
+        </member>
+        <member name="M:Tao_OpenGl_inicialised11.Form1.ClassCube.DrawCube">
+            <summary>
+            Завершающее рисование куба (Объеденяет void WriteCube и void WriteSoidCub )
+            </summary>
+        </member>
+        <member name="T:Tao_OpenGl_inicialised11.Form1.CameraClass">
+            <summary>
+            Класс дял работы с камерой.
+            </summary>
+        </member>
+        <member name="M:Tao_OpenGl_inicialised11.Form1.CameraClass.#ctor(System.Single,System.Single)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Tao_OpenGl_inicialised11.Form1.CameraClass"/> class.
+            </summary>
+            <param name="RotationAngleX">The rotation angle x.</param>
+            <param name="RotationAngleY">The rotation angle y.</param>
+        </member>
+        <member name="T:Tao_OpenGl_inicialised11.Form1.Time">
+            <summary>
+            Класс для работы со временем .
+            </summary>
+        </member>
+        <member name="M:Tao_OpenGl_inicialised11.Form1.Time.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Tao_OpenGl_inicialised11.Form1.Time"/> class.
+            </summary>
+        </member>
+        <member name="P:Tao_OpenGl_inicialised11.Form1.Time.MinuteTime">
+            <summary>
+            Gets or sets the minute time.
+            </summary>
+            <value>The minute time.</value>
+        </member>
+        <member name="P:Tao_OpenGl_inicialised11.Form1.Time.SecondsTime">
+            <summary>
+            Gets or sets the seconds time.
+            </summary>
+            <value>The seconds time.</value>
+        </member>
+        <member name="P:Tao_OpenGl_inicialised11.Form1.Time.MilleSecondsTime">
+            <summary>
+            Gets or sets the mille seconds time.
+            </summary>
+            <value>The mille seconds time.</value>
+        </member>
+        <member name="F:Tao_OpenGl_inicialised11.Form1.Cube">
+            <summary>
+            Массив кубов 
+            </summary>
+        </member>
+        <member name="F:Tao_OpenGl_inicialised11.Form1.Records">
+            <summary>
+            Массив записей рекордов
+            </summary>
+        </member>
+        <member name="M:Tao_OpenGl_inicialised11.Form1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Tao_OpenGl_inicialised11.Form1"/> class.
+            </summary>
+        </member>
+        <member name="M:Tao_OpenGl_inicialised11.Form1.Form1_Load(System.Object,System.EventArgs)">
+            <summary>
+             Настройка OpenGl для дальнейшей работы
+             Проверка файловой системы
+             запуск дополнительных процедур для настройки 
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Tao_OpenGl_inicialised11.Form1.SecondSettingUp">
+            <summary>
+            Дополнительная настройка 
+                задает многие параметры,создает массив Общего куба
+            </summary>
+        </member>
+        <member name="M:Tao_OpenGl_inicialised11.Form1.WriteCubeRub">
+            <summary>
+            Рисовани кубика рубика 
+            </summary>
+        </member>
+        <member name="M:Tao_OpenGl_inicialised11.Form1.button1_Click(System.Object,System.EventArgs)">
+            <summary>
+            Процедура в которой происходят выховы функции перерисовки сцены 
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Tao_OpenGl_inicialised11.Form1.AnimationOpenMenu(System.Object,System.EventArgs)">
+            <summary>
+            Animations the open menu.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Tao_OpenGl_inicialised11.Form1.AnimationCloseMenu(System.Object,System.EventArgs)">
+            <summary>
+            Animations the close menu.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Tao_OpenGl_inicialised11.Form1.timer1_Tick(System.Object,System.EventArgs)">
+            <summary>
+            Функция вызывающаяся в таймере для перерисовки сцены 
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Tao_OpenGl_inicialised11.Form1.FlipSide(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Переворот Грани 
+            </summary>
+            <param name="X">Середина грани по X.</param>
+            <param name="Y">Середина грани по Y.</param>
+            <param name="Z">Середина грани по Z.</param>
+        </member>
+        <member name="M:Tao_OpenGl_inicialised11.Form1.GameIsOver">
+            <summary>
+            Функция вызываемая для окончания игры 
+            </summary>
+        </member>
+        <member name="M:Tao_OpenGl_inicialised11.Form1.SwapArrCube(Tao_OpenGl_inicialised11.Form1.ClassCube@,Tao_OpenGl_inicialised11.Form1.ClassCube@)">
+            <summary>
+            Функция меняет 2 элемента Cube[] местами 
+            </summary>
+            <param name="First">Первый элемент массива.</param>
+            <param name="Second">Второй элемент массива.</param>
+        </member>
+        <member name="M:Tao_OpenGl_inicialised11.Form1.SaveRecordFileXml">
+            <summary>
+            Saves the record file XML.
+            </summary>
+        </member>
+        <member name="M:Tao_OpenGl_inicialised11.Form1.LoadRecordFileXml">
+            <summary>
+            Loads the record file XML.
+            </summary>
+        </member>
+        <member name="M:Tao_OpenGl_inicialised11.Form1.RewrireRecordsTables">
+            <summary>
+            Rewrites the records tables.
+            </summary>
+        </member>
+        <member name="M:Tao_OpenGl_inicialised11.Form1.ShaflCube">
+            <summary>
+            Случайно вращает грани куба .
+            </summary>
+        </member>
+        <member name="F:Tao_OpenGl_inicialised11.Form1.components">
+            <summary>
+            Требуется переменная конструктора.
+            </summary>
+        </member>
+        <member name="M:Tao_OpenGl_inicialised11.Form1.Dispose(System.Boolean)">
+            <summary>
+            Освободить все используемые ресурсы.
+            </summary>
+            <param name="disposing">истинно, если управляемый ресурс должен быть удален; иначе ложно.</param>
+        </member>
+        <member name="M:Tao_OpenGl_inicialised11.Form1.InitializeComponent">
+            <summary>
+            Обязательный метод для поддержки конструктора - не изменяйте
+            содержимое данного метода при помощи редактора кода.
+            </summary>
+        </member>
+        <member name="M:Tao_OpenGl_inicialised11.Program.Main">
+            <summary>
+            Главная точка входа для приложения.
+            </summary>
+        </member>
+        <member name="T:Tao_OpenGl_inicialised11.Properties.Resources">
+            <summary>
+              Класс ресурсов со строгим типом для поиска локализованных строк и пр.
+            </summary>
+        </member>
+        <member name="P:Tao_OpenGl_inicialised11.Properties.Resources.ResourceManager">
+            <summary>
+              Возврат кэшированного экземпляра ResourceManager, используемого этим классом.
+            </summary>
+        </member>
+        <member name="P:Tao_OpenGl_inicialised11.Properties.Resources.Culture">
+            <summary>
+              Переопределяет свойство CurrentUICulture текущего потока для всех
+              подстановки ресурсов с помощью этого класса ресурсов со строгим типом.
+            </summary>
+        </member>
+    </members>
+</doc>
