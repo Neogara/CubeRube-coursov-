@@ -19,15 +19,3 @@ F:\Programing\CubeRube OpenGL\Tao_OpenGl_inicialised11\obj\Debug\Cube-Rube OpenG
 H:\Programing\CubeRube OpenGL\Tao_OpenGl_inicialised11\bin\Debug\Cube-Rube OpenGL.exe.config
 H:\Programing\CubeRube OpenGL\Tao_OpenGl_inicialised11\obj\Debug\Cube-Rube OpenGL.exe
 H:\Programing\CubeRube OpenGL\Tao_OpenGl_inicialised11\obj\Debug\Cube-Rube OpenGL.pdb
-H:\Programing\CubeRube OpenGL\Tao_OpenGl_inicialised11\bin\Debug\Cube-Rube OpenGL.exe
-H:\Programing\CubeRube OpenGL\Tao_OpenGl_inicialised11\bin\Debug\Cube-Rube OpenGL.pdb
-H:\Programing\CubeRube OpenGL\Tao_OpenGl_inicialised11\bin\Debug\Tao.FreeGlut.dll
-H:\Programing\CubeRube OpenGL\Tao_OpenGl_inicialised11\bin\Debug\Tao.OpenGl.dll
-H:\Programing\CubeRube OpenGL\Tao_OpenGl_inicialised11\bin\Debug\Tao.Platform.Windows.dll
-H:\Programing\CubeRube OpenGL\Tao_OpenGl_inicialised11\bin\Debug\Tao.FreeGlut.xml
-H:\Programing\CubeRube OpenGL\Tao_OpenGl_inicialised11\bin\Debug\Tao.OpenGl.xml
-H:\Programing\CubeRube OpenGL\Tao_OpenGl_inicialised11\bin\Debug\Tao.Platform.Windows.xml
-H:\Programing\CubeRube OpenGL\Tao_OpenGl_inicialised11\obj\Debug\Tao_OpenGl_inicialised11.csprojResolveAssemblyReference.cache
-H:\Programing\CubeRube OpenGL\Tao_OpenGl_inicialised11\obj\Debug\Tao_OpenGl_inicialised11.Form1.resources
-H:\Programing\CubeRube OpenGL\Tao_OpenGl_inicialised11\obj\Debug\Tao_OpenGl_inicialised11.Properties.Resources.resources
-H:\Programing\CubeRube OpenGL\Tao_OpenGl_inicialised11\obj\Debug\Tao_OpenGl_inicialised11.csproj.GenerateResource.Cache

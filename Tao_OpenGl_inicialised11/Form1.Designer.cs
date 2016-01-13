@@ -74,7 +74,6 @@
             // 
             // RenderTimer
             // 
-            this.RenderTimer.Enabled = true;
             this.RenderTimer.Interval = 50;
             this.RenderTimer.Tick += new System.EventHandler(this.timer1_Tick);
             // 
@@ -403,6 +402,7 @@
             this.Controls.Add(this.OpenGlControl);
             this.Name = "Form1";
             this.Text = "Кубик Рубик By NeoGara";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.PanelMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
